@@ -40,7 +40,8 @@ jobs:
       - uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
       - name: Setup Matrix
         uses: actions/setup-python@v2
         with:
@@ -56,7 +57,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.08, macos-10.15, macos-latest, arm, self-hosted]
+        os: [ubuntu-latest, macos-latest, arm]
           #python-version: ['3.8', '3.9']
         python-version: ['3.9']
         exclude:
@@ -74,6 +75,8 @@ jobs:
       - uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
             #- uses: actions/checkout@v2
             #  with:
             #    # Repository name with owner. For example, actions/checkout

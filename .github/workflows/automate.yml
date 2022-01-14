@@ -48,6 +48,7 @@ jobs:
       - name: Print github workspace
         run: |
           printenv
+          echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           make init
 
@@ -150,6 +151,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: automate.sh matrix
         run: |
+          echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           python -c "import sys; print(sys.version)"
           make init
@@ -184,6 +186,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: automate.sh matrix
         run: |
+          echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           python -c "import sys; print(sys.version)"
           ./bitcoin-test-battery.sh v22.0rc3

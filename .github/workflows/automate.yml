@@ -21,12 +21,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ['3.9']
+        os: [ubuntu-latest, ubuntu-20.08, m1.local]
+        python-version: ['3.9','3.10']
         exclude:
           - os: ubuntu-latest
             python-version: ['2.7','3.6','3.7','3.8']
           - os: macos-latest
+            python-version: ['2.7','3.6','3.7','3.8']
+          - os: macos-10.15
             python-version: ['2.7','3.6','3.7','3.8']
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
@@ -38,6 +40,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          architecture: x64
       - name: Print github workspace
         run: |
           printenv
@@ -49,12 +52,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ['3.9']
+        os: [ubuntu-latest, ubuntu-20.08, m1.local]
+        python-version: ['3.9','3.10']
         exclude:
           - os: ubuntu-latest
             python-version: ['2.7','3.6','3.7','3.8']
           - os: macos-latest
+            python-version: ['2.7','3.6','3.7','3.8']
+          - os: macos-10.15
             python-version: ['2.7','3.6','3.7','3.8']
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
@@ -66,11 +71,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          architecture: x64
       - name: automate.sh matrix
         run: |
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
-          python -c "import sys; print(sys.version)"
+          python3 -c "import sys; print(sys.version)"
           make init
           make automate
 
@@ -78,12 +84,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ['3.9']
+        os: [ubuntu-latest, ubuntu-20.08, m1.local]
+        python-version: ['3.9','3.10']
         exclude:
           - os: ubuntu-latest
             python-version: ['2.7','3.6','3.7','3.8']
           - os: macos-latest
+            python-version: ['2.7','3.6','3.7','3.8']
+          - os: macos-10.15
             python-version: ['2.7','3.6','3.7','3.8']
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
@@ -94,10 +102,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          architecture: x64
       - name: automate.sh matrix
         run: |
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
-          python -c "import sys; print(sys.version)"
+          python3 -c "import sys; print(sys.version)"
           ./bitcoin-test-battery.sh v22.0rc3
 

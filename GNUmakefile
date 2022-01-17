@@ -43,12 +43,13 @@ GIT_USER_NAME							:= $(shell git config user.name)
 export GIT_USER_NAME
 GH_USER_NAME							:= $(shell git config user.name)
 #MIRRORS
-GH_USER_REPO    						:= $(GH_USER_NAME).github.io
-KB_USER_REPO   	        				:= $(GH_USER_NAME).keybase.pub
+GH_USER_REPO							:= $(GH_USER_NAME).github.io
+GH_USER_SPECIAL_REPO					:= $(GH_USER_NAME)/$(GH_USER_NAME)
+KB_USER_REPO							:= $(GH_USER_NAME).keybase.pub
 #GITHUB RUNNER CONFIGS
 ifneq ($(ghuser),)
 GH_USER_NAME := $(ghuser)
-GH_USER_REPO := $(ghuser).github.io
+GH_USER_SPECIAL_REPO := $(ghuser)/$(ghuser)
 endif
 ifneq ($(kbuser),)
 KB_USER_NAME := $(kbuser)
@@ -56,6 +57,7 @@ KB_USER_REPO := $(kbuser).keybase.pub
 endif
 export GIT_USER_NAME
 export GH_USER_REPO
+export GH_USER_SPECIAL_REPO
 export KB_USER_REPO
 
 GIT_USER_EMAIL							:= $(shell git config user.email)
@@ -151,9 +153,11 @@ report:
 	@echo '	[ARGUMENTS]	'
 	@echo '      args:'
 	@echo '        - TIME=${TIME}'
+	@echo '        - BASENAME=${BASENAME}'
 	@echo '        - PROJECT_NAME=${PROJECT_NAME}'
 	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '        - GH_USER_REPO=${GH_USER_REPO}'
+	@echo '        - GH_USER_SPECIAL_REPO=${GH_USER_SPECIAL_REPO}'
 	@echo '        - KB_USER_REPO=${KB_USER_REPO}'
 	@echo '        - GIT_USER_EMAIL=${GIT_USER_EMAIL}'
 	@echo '        - GIT_SERVER=${GIT_SERVER}'
@@ -273,8 +277,8 @@ docs: git-add awesome
 	bash -c 'cat $(PWD)/sources/FOOTER.md                >> $(PWD)/README.md'
 	#brew install pandoc
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew install pandoc"
-	#bash -c 'pandoc -s README.md -o index.html  --metadata title="$(GH_USER_REPO)" '
-	bash -c 'pandoc -s README.md -o index.html'
+	bash -c 'pandoc -s README.md -o index.html  --metadata title="https://github.com/$(GH_USER_SPECIAL_REPO)" '
+	#bash -c 'pandoc -s README.md -o index.html'
 	#bash -c "if hash open 2>/dev/null; then open README.md; fi || echo failed to open README.md"
 	git add --ignore-errors sources/*.md
 	git add --ignore-errors *.md

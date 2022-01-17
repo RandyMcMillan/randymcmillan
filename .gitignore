@@ -8,6 +8,8 @@ bitcoin-test-battery-1*
 twitter.access.tokens
 twitter.access.tokens/*
 
+bitcoin.pdf
+
 *.DS_Store
 venv
 _private_build

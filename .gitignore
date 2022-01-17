@@ -5,6 +5,9 @@ CNAME
 bitcoin-test-battery-*
 bitcoin-test-battery-1*
 
+twitter.access.tokens
+twitter.access.tokens/*
+
 *.DS_Store
 venv
 _private_build

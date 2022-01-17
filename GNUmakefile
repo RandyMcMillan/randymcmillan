@@ -44,7 +44,7 @@ export GIT_USER_NAME
 GH_USER_NAME							:= $(shell git config user.name)
 #MIRRORS
 GH_USER_REPO							:= $(GH_USER_NAME).github.io
-GH_USER_SPECIAL_REPO					:= $(GH_USER_NAME)/$(GH_USER_NAME)
+GH_USER_SPECIAL_REPO					:= $(GH_USER_NAME)
 KB_USER_REPO							:= $(GH_USER_NAME).keybase.pub
 #GITHUB RUNNER CONFIGS
 ifneq ($(ghuser),)
@@ -277,8 +277,8 @@ docs: git-add awesome
 	bash -c 'cat $(PWD)/sources/FOOTER.md                >> $(PWD)/README.md'
 	#brew install pandoc
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew install pandoc"
-	bash -c 'pandoc -s README.md -o index.html  --metadata title="https://github.com/$(GH_USER_SPECIAL_REPO)" '
-	#bash -c 'pandoc -s README.md -o index.html'
+	#bash -c 'pandoc -s README.md -o index.html  --metadata title="$(GH_USER_SPECIAL_REPO)" '
+	bash -c 'pandoc -s README.md -o index.html'
 	#bash -c "if hash open 2>/dev/null; then open README.md; fi || echo failed to open README.md"
 	git add --ignore-errors sources/*.md
 	git add --ignore-errors *.md

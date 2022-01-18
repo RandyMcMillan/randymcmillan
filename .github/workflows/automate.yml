@@ -110,5 +110,5 @@ jobs:
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           python3 -c "import sys; print(sys.version)"
-          ./bitcoin-test-battery.sh v22.0
+          #./bitcoin-test-battery.sh v22.0
 

@@ -144,7 +144,7 @@ help: report
 	@echo "  make branch"
 	@echo "  make trigger"
 	@echo "  make push"
-	@echo ""
+	@echo "  make bitcoin-test-battery"
 	@echo ""
 
 .PHONY: report

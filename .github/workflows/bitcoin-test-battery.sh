@@ -80,7 +80,7 @@ pushd $PWD
     make -C depends
     #
     ./contrib/install_db4.sh .
-    export BDB_PREFIX='/Users/git/bitcoin-test-battery/db4'
+    export BDB_PREFIX=$PWD/db4
     #
     export BINARY_PATH=$(pwd)/src
     export QT_PATH=$(pwd)/src/qt
@@ -113,6 +113,8 @@ checkbrew() {
         brew install librsvg
         brew install codespell shellcheck
         brew install --build-from-source afl-fuzz
+        brew install python@3.8
+        brew postinstall python@3.8
     else
         #example - execute script with perl
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"

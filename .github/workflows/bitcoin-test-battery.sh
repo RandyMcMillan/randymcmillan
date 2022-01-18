@@ -109,7 +109,7 @@ checkbrew() {
         brew install wget
         brew install curl
         brew install gcc
-        brew install autoconf automake berkeley-db4 libtool boost miniupnpc pkg-config python qt@5 libevent qrencode tor
+        brew install autoconf automake berkeley-db@4 libtool boost miniupnpc pkg-config python qt@5 libevent qrencode tor
         brew install librsvg
         brew install codespell shellcheck
         brew install --build-from-source afl-fuzz

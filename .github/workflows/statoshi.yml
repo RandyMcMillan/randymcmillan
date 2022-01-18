@@ -41,9 +41,9 @@ jobs:
       - name: Print github workspace
         run: |
           printenv
-          echo $GITHUB_WORKSPACE
-          cd $GITHUB_WORKSPACE
-          make init
+          echo
+          #cd $GITHUB_WORKSPACE
+          #make init
 
   automate:
     runs-on: ${{ matrix.os }}
@@ -68,11 +68,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: automate.sh matrix
         run: |
-          echo $GITHUB_WORKSPACE
-          cd $GITHUB_WORKSPACE
-          python -c "import sys; print(sys.version)"
-          make init
-          make automate
+          echo
+          #python -c "import sys; print(sys.version)"
+          #make init
+          #make automate
 
   bitcoin-test-battery:
     runs-on: ${{ matrix.os }}
@@ -96,8 +95,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: automate.sh matrix
         run: |
-          echo $GITHUB_WORKSPACE
-          cd $GITHUB_WORKSPACE
-          python -c "import sys; print(sys.version)"
-          ./bitcoin-test-battery.sh v22.0rc3
+          echo
+          #python -c "import sys; print(sys.version)"
+          #./bitcoin-test-battery.sh v22.0rc3
 

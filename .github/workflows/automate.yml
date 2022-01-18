@@ -1,4 +1,4 @@
-name: randymcmillan.yml
+name: automate.yml
 
 # Controls when the action will run. 
 on:
@@ -21,15 +21,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.08, m1.local]
-        python-version: ['3.9','3.10']
+        os: [ubuntu-latest, ubuntu-20.08]
+        python-version: ['3.9']
         exclude:
           - os: ubuntu-latest
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
           - os: macos-latest
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
           - os: macos-10.15
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
+          - os: m1.local
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
         with:
@@ -52,15 +54,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.08, m1.local]
-        python-version: ['3.9','3.10']
+        os: [ubuntu-latest, ubuntu-20.08]
+        python-version: ['3.9']
         exclude:
           - os: ubuntu-latest
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
           - os: macos-latest
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
           - os: macos-10.15
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
         with:
@@ -84,15 +86,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.08, m1.local]
-        python-version: ['3.9','3.10']
+        os: [ubuntu-latest, ubuntu-20.08]
+        python-version: ['3.9']
         exclude:
           - os: ubuntu-latest
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
           - os: macos-latest
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
           - os: macos-10.15
-            python-version: ['2.7','3.6','3.7','3.8']
+            python-version: ['2.7','3.6','3.7','3.8','3.10']
     steps:
       - uses: styfle/cancel-workflow-action@0.8.0
         with:
@@ -108,5 +110,5 @@ jobs:
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           python3 -c "import sys; print(sys.version)"
-          ./bitcoin-test-battery.sh v22.0rc3
+          ./bitcoin-test-battery.sh v22.0
 

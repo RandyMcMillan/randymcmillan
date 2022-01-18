@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.08]
+        os: [ubuntu-latest]
         python-version: ['3.9']
         exclude:
           - os: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.08]
+        os: [ubuntu-latest]
         python-version: ['3.9']
         exclude:
           - os: ubuntu-latest
@@ -86,7 +86,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-20.08]
+        os: [ubuntu-latest]
         python-version: ['3.9']
         exclude:
           - os: ubuntu-latest

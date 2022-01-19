@@ -263,7 +263,7 @@ EOF
 
 chmod 755 ~/pyscript.py
 
-~/./pyscript.py
+python ~/pyscript.py
 
 MYSTRING="Do something in bash"
 echo "$MYSTRING"

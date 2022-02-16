@@ -1,3 +1,4 @@
 twitter_scraper
 blockcypher
 setuptools
+twitter

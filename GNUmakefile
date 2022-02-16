@@ -125,7 +125,10 @@ init:
 	@echo $(PIP)
 	@echo $(PIP2)
 	@echo $(PIP3)
-	$(PYTHON3) -m $(PIP) install -r requirements.txt
+	@echo PATH=$(PATH):/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin
+	@echo PATH=$(PATH):$(HOME)/Library/Python/3.9/bin
+	$(PYTHON3) -m pip install --user --upgrade pip
+	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
 
 .PHONY: help
 help: report
@@ -148,7 +151,7 @@ help: report
 	@echo ""
 
 .PHONY: report
-report: 
+report:
 	@echo ''
 	@echo '	[ARGUMENTS]	'
 	@echo '      args:'
@@ -282,7 +285,7 @@ docs: git-add awesome
 	#bash -c "if hash open 2>/dev/null; then open README.md; fi || echo failed to open README.md"
 	git add --ignore-errors sources/*.md
 	git add --ignore-errors *.md
-	#git ls-files -co --exclude-standard | grep '\.md/$\' | xargs git 
+	#git ls-files -co --exclude-standard | grep '\.md/$\' | xargs git
 
 .PHONY: awesome
 awesome:
@@ -328,7 +331,7 @@ legit:
 	#TODO make all
 	#make all -C legit
 	cd legit && ./make-legit.sh
-	
+
 .PHONY: clean
 .ONESHELL:
 clean: touch-time touch-global

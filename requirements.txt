@@ -1,4 +1,5 @@
+setuptools
 twitter_scraper
 blockcypher
 setuptools
-twitter
+twitterAPI

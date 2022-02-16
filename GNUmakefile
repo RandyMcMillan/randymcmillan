@@ -30,7 +30,8 @@ else
 PROJECT_NAME							:= $(project)
 endif
 export PROJECT_NAME
-
+PYTHONPATH=$(PWD)/twitter
+export PYTHONPATH
 ifeq ($(port),)
 PORT									:= 0
 else
@@ -118,6 +119,7 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 -: help
 
 .PHONY: init
+.ONESHELL:
 init:
 	@echo $(PYTHON)
 	@echo $(PYTHON2)
@@ -129,7 +131,9 @@ init:
 	@echo PATH=$(PATH):$(HOME)/Library/Python/3.9/bin
 	$(PYTHON3) -m pip install --user --upgrade pip
 	# $(PYTHON3) -m $(PIP) install --user -r requirements.txt
-	bash -c "git clone https://github.com/python-twitter-tools/twitter.git"
+	@echo pip3 install --user twint
+	@echo pip3 install --user TwitterAPI
+	[ -d "$(PWD)/TwitterAPI" ] && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install || git clone https://github.com/geduldig/TwitterAPI.git && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install
 
 .PHONY: help
 help: report
@@ -159,6 +163,7 @@ report:
 	@echo '        - TIME=${TIME}'
 	@echo '        - BASENAME=${BASENAME}'
 	@echo '        - PROJECT_NAME=${PROJECT_NAME}'
+	@echo '        - PYTHONPATH=${PYTHONPATH}'
 	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '        - GH_USER_REPO=${GH_USER_REPO}'
 	@echo '        - GH_USER_SPECIAL_REPO=${GH_USER_SPECIAL_REPO}'

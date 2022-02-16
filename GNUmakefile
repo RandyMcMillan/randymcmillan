@@ -248,7 +248,8 @@ trigger: remove git-add touch-block-time touch-time touch-global
 .ONESHELL:
 touch-time: remove git-add touch-block-time
 	@echo touch-time
-	echo $(TIME) $(shell git rev-parse HEAD) > TIME
+	# echo $(TIME) $(shell git rev-parse HEAD) > TIME
+	echo $(TIME) > TIME
 
 .PHONY: touch-global
 .ONESHELL:

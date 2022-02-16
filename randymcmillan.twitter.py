@@ -44,6 +44,6 @@ api = TwitterAPI(
     at,
     ats
 )
-r = api.request('search/tweets', {'q':'pizza'})
+r = api.request('search/tweets', {'q':'bitcoin'})
 for item in r:
         print(item)

@@ -128,7 +128,8 @@ init:
 	@echo PATH=$(PATH):/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin
 	@echo PATH=$(PATH):$(HOME)/Library/Python/3.9/bin
 	$(PYTHON3) -m pip install --user --upgrade pip
-	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
+	# $(PYTHON3) -m $(PIP) install --user -r requirements.txt
+	bash -c "git clone https://github.com/python-twitter-tools/twitter.git"
 
 .PHONY: help
 help: report

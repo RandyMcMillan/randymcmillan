@@ -5,6 +5,7 @@ CNAME
 bitcoin-test-battery-*
 bitcoin-test-battery-1*
 
+twitter/
 twitter.access.tokens
 twitter.access.tokens/*
 twitter_access_tokens

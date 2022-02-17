@@ -48,9 +48,9 @@ def blockTime():
         pass
 
 def BTC_UNIX_TIME():
-    global BTC_UNIX_TIME
-    BTC_UNIX_TIME = str(blockTime())+":"+str(getSeconds())
-    return BTC_UNIX_TIME
+    global btc_unix_time
+    btc_unix_time = str(blockTime())+":"+str(getSeconds())
+    return btc_unix_time
 
 def getData(filename):
     f = open(filename)
@@ -125,14 +125,38 @@ def HEX_MESSAGE_DIGEST(recipient, message):
     n = hashlib.sha256()
     n.update(bytes(recipient, 'utf-8'))
     n.update(bytes(message, 'utf-8'))
-    n.update(bytes(BTC_UNIX_TIME(), 'utf-8'))
-    print(n.digest())
+    n.update(bytes(btc_unix_time, 'utf-8'))
+    # print(n.digest())
     # b'\x03\x1e\xdd}Ae\x15\x93\xc5\xfe\\\x00o\xa5u+7\xfd\xdf\xf7\xbcN\x84:\xa6\xaf\x0c\x95\x0fK\x94\x06'
-    print(n.digest_size)
+    # print(n.digest_size)
     # 32
-    print(n.block_size)
+    # print(n.block_size)
     # 64
-    print(n.hexdigest())
+    # print(n.hexdigest())
+    return n.hexdigest()
 
-GPG_ID='BB06757B'
-HEX_MESSAGE_DIGEST(GPG_ID,"test message")
+def tweetMessageDigest(block_time):
+    if (block_time != obt):
+        # r = api.request('statuses/update', {'status': block_time+":"+getSeconds })
+        # message = BTC_UNIX_TIME()
+        digest = HEX_MESSAGE_DIGEST(GPGID,"test message")
+        r = api.request('statuses/update', {'status':
+                                            "GPGID:"+GPGID+':DIGEST:'+digest+':BTC:UNIX:'+BTC_UNIX_TIME() })
+        # r = api.request('statuses/update', {'status': HEX_MESSAGE_DIGEST(GPGID,"test message")})
+        # print(BTC_UNIX_TIME)
+        # exit()
+        if (r.status_code == 200):
+            print('api.request SUCCESS')
+        else:
+            print('api.request FAILURE')
+    else:
+        print('tweetBlockTime() FAILURE')
+
+print(BTC_UNIX_TIME())
+
+global GPGID
+GPGID='BB06757B'
+HEX_MESSAGE_DIGEST(GPGID,"test message")
+tweetMessageDigest(blockTime())
+
+

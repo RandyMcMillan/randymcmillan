@@ -4,3 +4,4 @@ blockcypher
 setuptools
 twitterAPI
 jq
+hashlib

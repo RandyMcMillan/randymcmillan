@@ -8,6 +8,7 @@ import importlib
 from importlib.resources import read_text
 import time
 import blockcypher
+import hashlib
 import pyjq
 os.environ['PYTHONPATH']
 sys.path.append('.')

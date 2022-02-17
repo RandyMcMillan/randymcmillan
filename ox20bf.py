@@ -86,13 +86,15 @@ def searchBitcoin():
     for item in r:
         print(item)
 
-BLOCK_TIP_HEIGHT        = os.path.expanduser('./BLOCK_TIP_HEIGHT')
-DIFFICULTY              = os.path.expanduser('./DIFFICULTY')
-OLD_BLOCK_TIME          = os.path.expanduser('./OLD_BLOCK_TIME')
-ACCESS_TOKEN_SECRET     = os.path.expanduser('./twitter_access_tokens/access_token_secret.txt')
-ACCESS_TOKEN            = os.path.expanduser('./twitter_access_tokens/access_token.txt')
-CONSUMER_API_KEY        = os.path.expanduser('./twitter_access_tokens/consumer_api_key.txt')
-CONSUMER_API_SECRET_KEY = os.path.expanduser('./twitter_access_tokens/consumer_api_secret_key.txt')
+
+CONFIG                  = 'twitter_access_tokens'
+BLOCK_TIP_HEIGHT        = os.path.expanduser(os.getcwd()+'/BLOCK_TIP_HEIGHT')
+DIFFICULTY              = os.path.expanduser(os.getcwd()+'/DIFFICULTY')
+OLD_BLOCK_TIME          = os.path.expanduser(os.getcwd()+'/OLD_BLOCK_TIME')
+ACCESS_TOKEN_SECRET     = os.path.expanduser(os.getcwd()+'/'+CONFIG+'/access_token_secret.txt')
+ACCESS_TOKEN            = os.path.expanduser(os.getcwd()+'/'+CONFIG+'/access_token.txt')
+CONSUMER_API_KEY        = os.path.expanduser(os.getcwd()+'/'+CONFIG+'/consumer_api_key.txt')
+CONSUMER_API_SECRET_KEY = os.path.expanduser(os.getcwd()+'/'+CONFIG+'/consumer_api_secret_key.txt')
 
 cak  = getData(CONSUMER_API_KEY)
 cask = getData(CONSUMER_API_SECRET_KEY)

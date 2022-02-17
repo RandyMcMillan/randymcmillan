@@ -1,0 +1,7 @@
+setuptools
+twitter_scraper
+blockcypher
+setuptools
+twitterAPI
+jq
+#hashlib

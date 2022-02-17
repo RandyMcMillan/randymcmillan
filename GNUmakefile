@@ -211,6 +211,9 @@ git-add: remove
 	git add --ignore-errors .github
 	git add --ignore-errors *.sh
 	git add --ignore-errors *.yml
+	git add --ignore-errors BLOCK_TIP_HEIGHT
+	git add --ignore-errors DIFFICULTY
+	git add --ignore-errors TIME
 
 .PHONY: push
 .ONESHELL:

@@ -15,27 +15,27 @@ from TwitterAPI import TwitterAPI
 millis = int(round(time.time() * 1000))
 seconds = int(round(time.time()))
 
-print(os.getcwd())
+# print(os.getcwd())
+def moveBlockTime():
+    try:
+        # shutil.move(os.path.join(filedir, "pages.html"), os.getcwd())
+        shutil.move(os.getcwd()+"/BLOCK_TIME", os.getcwd()+"/OLD_BLOCK_TIME")
+    except:
+        f = open("BLOCK_TIME", "w")
+        f.write("" + 0 + "\n")
+        f.close()
 
-try:
-    # shutil.move(os.path.join(filedir, "pages.html"), os.getcwd())
-    shutil.move(os.getcwd()+"/BLOCK_TIME", os.getcwd()+"/OLD_BLOCK_TIME")
-except:
-    f = open("BLOCK_TIME", "w")
-    f.write("" + 0 + "\n")
-    f.close()
-
-try:
-    block_time = blockcypher.get_latest_block_height(coin_symbol='btc')
-    block_height = repr(block_time)
-    f = open("BLOCK_TIME", "w")
-    f.write("" + block_height + "\n")
-    f.close()
-    # print(block_time)
-    print(block_height)
-except:
-    block_time = 0
-    pass
+def blockTime():
+    try:
+        block_time = blockcypher.get_latest_block_height(coin_symbol='btc')
+        block_height = repr(block_time)
+        f = open("BLOCK_TIME", "w")
+        f.write("" + block_height + "\n")
+        f.close()
+        return block_time
+    except:
+        return 0
+        pass
 
 def getData(filename):
     f = open(filename)
@@ -44,18 +44,11 @@ def getData(filename):
     f.close()
     return data
 
-# def tweetBlockTime():
-#     r = api.request('statuses/update', {'status': block_height })
-#     if (r.status_code == 200):
-#         print('SUCCESS')
-#     else:
-#         print('FAILURE')
-
-def tweetBlockTime():
-    print(block_height)
-    print(obt)
-    if (block_height != obt):
-        r = api.request('statuses/update', {'status': block_height })
+def tweetBlockTime(block_time):
+    # print(block_time)
+    # print(obt)
+    if (block_time != obt):
+        r = api.request('statuses/update', {'status': block_time })
         if (r.status_code == 200):
             print('api.request SUCCESS')
         else:
@@ -64,7 +57,6 @@ def tweetBlockTime():
         print('tweetBlockTime() FAILURE')
 
 OLD_BLOCK_TIME = os.path.expanduser('./OLD_BLOCK_TIME')
-
 ACCESS_TOKEN_SECRET = os.path.expanduser('./twitter_access_tokens/access_token_secret.txt')
 ACCESS_TOKEN = os.path.expanduser('./twitter_access_tokens/access_token.txt')
 CONSUMER_API_KEY = os.path.expanduser('./twitter_access_tokens/consumer_api_key.txt')
@@ -83,4 +75,5 @@ api  = TwitterAPI(cak,cask,at,ats)
 # for item in r:
 #         print(item)
 
-tweetBlockTime()
+tweetBlockTime(blockTime())
+print(blockTime())

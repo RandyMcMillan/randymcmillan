@@ -108,5 +108,31 @@ getMempoolAPI('https://mempool.space/api/blocks/tip/height',        BLOCK_TIP_HE
 # print(blockTime())
 # print(getMillis())
 # print(getSeconds())
-tweetBlockTime(blockTime())
+# tweetBlockTime(blockTime())
+m = hashlib.sha256()
+m.update(b"Nobody inspects")
+m.update(b" the spammish repetition")
+print(m.digest())
+# b'\x03\x1e\xdd}Ae\x15\x93\xc5\xfe\\\x00o\xa5u+7\xfd\xdf\xf7\xbcN\x84:\xa6\xaf\x0c\x95\x0fK\x94\x06'
+print(m.digest_size)
+# 32
+print(m.block_size)
+# 64
+print(m.hexdigest())
 
+
+def HEX_MESSAGE_DIGEST(recipient, message):
+    n = hashlib.sha256()
+    n.update(bytes(recipient, 'utf-8'))
+    n.update(bytes(message, 'utf-8'))
+    n.update(bytes(BTC_UNIX_TIME(), 'utf-8'))
+    print(n.digest())
+    # b'\x03\x1e\xdd}Ae\x15\x93\xc5\xfe\\\x00o\xa5u+7\xfd\xdf\xf7\xbcN\x84:\xa6\xaf\x0c\x95\x0fK\x94\x06'
+    print(n.digest_size)
+    # 32
+    print(n.block_size)
+    # 64
+    print(n.hexdigest())
+
+GPG_ID='BB06757B'
+HEX_MESSAGE_DIGEST(GPG_ID,"test message")

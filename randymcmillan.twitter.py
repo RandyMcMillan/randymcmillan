@@ -4,7 +4,7 @@ import sys
 import os
 import requests
 import shutil
-import importlib as imp
+import importlib
 from importlib.resources import read_text
 import time
 import blockcypher
@@ -14,19 +14,29 @@ sys.path.append('.')
 sys.path.append("/usr/local/lib/python3.7/site-packages")
 from TwitterAPI import TwitterAPI
 
-# print(os.getcwd())
 def moveBlockTime():
     try:
-        # shutil.move(os.path.join(filedir, "pages.html"), os.getcwd())
         shutil.move(os.getcwd()+"/BLOCK_TIME", os.getcwd()+"/OLD_BLOCK_TIME")
     except:
         f = open("BLOCK_TIME", "w")
         f.write("" + 0 + "\n")
         f.close()
 
+def getMillis():
+    global millis
+    millis = int(round(time.time() * 1000))
+    return millis
+
+def getSeconds():
+    global seconds
+    seconds = int(round(time.time()))
+    return seconds
+
 def blockTime():
     try:
+        global block_time
         block_time = blockcypher.get_latest_block_height(coin_symbol='btc')
+        global block_height
         block_height = repr(block_time)
         f = open("BLOCK_TIME", "w")
         f.write("" + block_height + "\n")
@@ -35,6 +45,11 @@ def blockTime():
     except:
         return 0
         pass
+
+def BTC_UNIX_TIME():
+    global BTC_UNIX_TIME
+    BTC_UNIX_TIME = str(blockTime())+":"+str(getSeconds())
+    return BTC_UNIX_TIME
 
 def getData(filename):
     f = open(filename)
@@ -45,7 +60,10 @@ def getData(filename):
 
 def tweetBlockTime(block_time):
     if (block_time != obt):
-        r = api.request('statuses/update', {'status': block_time })
+        # r = api.request('statuses/update', {'status': block_time+":"+getSeconds })
+        r = api.request('statuses/update', {'status': BTC_UNIX_TIME() })
+        # print(BTC_UNIX_TIME)
+        # exit()
         if (r.status_code == 200):
             print('api.request SUCCESS')
         else:
@@ -53,30 +71,19 @@ def tweetBlockTime(block_time):
     else:
         print('tweetBlockTime() FAILURE')
 
-# Example: curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/asdfasdfasdf
-#
-# import requests
-#
-# headers = {
-#     'Content-type': 'application/json',
-# }
-#
-# data = '{"text":"Hello, World!"}'
-#
-# response = requests.post('https://hooks.slack.com/services/asdfasdfasdf', headers=headers, data=data)
-
-DIFFICULTY          = os.path.expanduser('./DIFFICULTY')
-
-print(pyjq.all( ".members[] | [.name]", {"members": [ {"name": "foo"} ]} ))
-
 def getMempoolAPI(url,DATA):
     # print(url)
     with open(DATA, 'wb') as f:
         r = requests.get(url, stream=True)
         f.writelines(r.iter_content(1024))
         response = getData(DATA)
-        print(getData(DATA))
-        print(response)
+        # print(getData(DATA))
+        # print(response)
+
+def searchBitcoin():
+    r = api.request('search/tweets', {'q':'bitcoin'})
+    for item in r:
+        print(item)
 
 BLOCK_TIP_HEIGHT        = os.path.expanduser('./BLOCK_TIP_HEIGHT')
 DIFFICULTY              = os.path.expanduser('./DIFFICULTY')
@@ -86,9 +93,6 @@ ACCESS_TOKEN            = os.path.expanduser('./twitter_access_tokens/access_tok
 CONSUMER_API_KEY        = os.path.expanduser('./twitter_access_tokens/consumer_api_key.txt')
 CONSUMER_API_SECRET_KEY = os.path.expanduser('./twitter_access_tokens/consumer_api_secret_key.txt')
 
-millis  = int(round(time.time() * 1000))
-seconds = int(round(time.time()))
-
 cak  = getData(CONSUMER_API_KEY)
 cask = getData(CONSUMER_API_SECRET_KEY)
 at   = getData(ACCESS_TOKEN)
@@ -97,13 +101,11 @@ obt  = getData(OLD_BLOCK_TIME)
 
 api  = TwitterAPI(cak,cask,at,ats)
 
-def searchBitcoin():
-    r = api.request('search/tweets', {'q':'bitcoin'})
-    for item in r:
-        print(item)
-
-# searchBitcoin()
-# print(blockTime())
-tweetBlockTime(blockTime())
 getMempoolAPI('https://mempool.space/api/v1/difficulty-adjustment', DIFFICULTY)
 getMempoolAPI('https://mempool.space/api/blocks/tip/height',        BLOCK_TIP_HEIGHT)
+# searchBitcoin()
+# print(blockTime())
+# print(getMillis())
+# print(getSeconds())
+tweetBlockTime(blockTime())
+

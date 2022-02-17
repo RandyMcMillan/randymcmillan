@@ -1,129 +1,149 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+CNAME
 
-# C extensions
-*.so
+164*
 
-# Distribution / packaging
-.Python
+bitcoin-test-battery-*
+bitcoin-test-battery-1*
+
+twitterAPI/
+twitter.access.tokens
+twitter.access.tokens/*
+twitter_access_tokens
+twitter_access_tokens/*
+
+twitter_access_tokens.zip
+
+bitcoin.pdf
+
+*.DS_Store
+venv
+_private_build
+_build/randymcmillan.github.io
+.buildinfo
+_build/.DS_Store
+_build/randymcmillan.keybase.pub/.DS_Store
+libs
+libs/*
+
+
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
 build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+DerivedData/
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+## Other
+*.moved-aside
+*.xcuserstate
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
 
-# Translations
-*.mo
-*.pot
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+#
+# Pods/
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
 
-# Flask stuff:
-instance/
-.webassets-cache
+Carthage/Build
 
-# Scrapy stuff:
-.scrapy
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
-# Sphinx documentation
-docs/_build/
+fastlane/report.xml
+fastlane/screenshots
 
-# PyBuilder
-target/
+#Code Injection
+#
+# After new code Injection tools there's a generated folder /iOSInjectionProject
+# https://github.com/johnno1962/injectionforxcode
 
-# Jupyter Notebook
-.ipynb_checkpoints
+iOSInjectionProject/
 
-# IPython
-profile_default/
-ipython_config.py
+*.dmg
+1.1.1*
+infinity
+infinity/*
 
-# pyenv
-.python-version
+# Compiled Python files
+*.pyc
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
+# Folder view configuration files
+./config/.DS_Store
+.DS_Store
+Desktop.ini
+.config/.DS_Store
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
+# Thumbnail cache files
+._*
+Thumbs.db
 
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
 
-# SageMath parsed files
-*.sage.py
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+## User settings
+xcuserdata/
 
-# Spyder project settings
-.spyderproject
-.spyproject
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
 
-# Rope project settings
-.ropeproject
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 
-# mkdocs documentation
-/site
+## Gcc Patch
+/*.gcno
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+hosts
+etc-dnsmasq.d
+etc-pihole
+.DS_Store
+.config/QtProject
+1.1.1i
+docker.shell
 
-# Pyre type checker
-.pyre/
+dotfiles
+legit
+.github/.DS_Store

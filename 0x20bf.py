@@ -140,7 +140,7 @@ def testHashLib():
     # 64
     print(m.hexdigest())
 
-def HEX_MESSAGE_DIGEST(recipient, message):
+def HEX_MESSAGE_DIGEST(recipient, message, sender):
     n = hashlib.sha256()
     print(n.digest())
     print(n.hexdigest())
@@ -161,16 +161,21 @@ def HEX_MESSAGE_DIGEST(recipient, message):
     print(n.hexdigest())
     print(n.digest_size)
     print(n.block_size)
+    n.update(bytes(sender, 'utf-8'))
+    print(n.digest())
+    print(n.hexdigest())
+    print(n.digest_size)
+    print(n.block_size)
 
     print(n.hexdigest())
 
     return n.hexdigest()
 
 def messageBody():
-        # global digest
-        digest = HEX_MESSAGE_DIGEST(GPGID, MESSAGE)
-        # global body
-        body = str("GPGID:"+GPGID+':DIGEST:'+digest+':BTC:UNIX:'+BTC_UNIX_TIME())
+        global digest
+        digest = HEX_MESSAGE_DIGEST(GPGR, MESSAGE,GPGS)
+        global body
+        body = str(":GPGR:"+GPGR+':DIGEST:'+digest+':BTC:UNIX:'+BTC_UNIX_TIME()+":GPGS:")
         print(body)
         return body
 
@@ -186,12 +191,15 @@ def tweetMessageDigest(block_time):
 
 print(BTC_UNIX_TIME())
 
-global GPGID
-GPGID='BB06757B'
-print(GPGID)
+global GPGR
+GPGR='BB06757B' #RECIPIENT
+print(GPGR)
+global GPGS
+GPGS='BB06757B' #SENDER
+print(GPGS)
 global MESSAGE
 MESSAGE='text human readable message'
-HEX_MESSAGE_DIGEST(GPGID, MESSAGE)
+HEX_MESSAGE_DIGEST(GPGR, MESSAGE, GPGS)
 # tweetMessageDigest(blockTime())
 print(str(messageBody()))
 # tweetBlockTime(blockTime())

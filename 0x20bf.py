@@ -81,6 +81,21 @@ def BTC_UNIX_TIME():
     btc_unix_time = str(blockTime())+":"+str(getMillis())
     return btc_unix_time
 
+def UNIX_TIME_MILLIS():
+    global unix_time_millis
+    unix_time_millis = str(getMillis())
+    return unix_time_millis
+
+def UNIX_TIME_SECONDS():
+    global unix_time_seconds
+    unix_time_seconds = str(getSeconds())
+    return unix_time_seconds
+
+def BTC_TIME():
+    global btc_time
+    btc_time = str(blockTime())
+    return btc_time
+
 def tweetBlockTime(block_time):
     if (block_time != obt):
         r = api.request('statuses/update', {'status': BTC_UNIX_TIME()})

@@ -1,0 +1,11 @@
+# https://w3schools.invisionzone.com/forum/46-suggestions/
+
+global x
+x = "awesome"
+
+def myfunc():
+  x = "fantastic"
+  return x
+
+print("Python is " + x)
+print("Python is " + myfunc())

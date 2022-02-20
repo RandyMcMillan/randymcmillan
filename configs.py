@@ -4,7 +4,7 @@ from imports    import *
 from socket     import *
 from psutil     import *
 from gmpy2      import *
-from unixTime   import *
+from unix_time  import *
 from sys        import *
 from os         import *
 
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     from imports    import *
     from psutil     import *
     from gmpy2      import *
-    from unixTime   import *
+    from unix_time  import *
     from sys        import *
     import argparse
     insertPaths()

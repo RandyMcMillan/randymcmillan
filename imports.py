@@ -44,8 +44,8 @@ import psutil
 import logging
 import codecs
 from datetime          import datetime
-from unixTime          import *
-from urlOK             import *
+from unix_time         import *
+from url_ok            import *
 #cProfile
 import cProfile, pstats, io
 #from pstats import SortKey

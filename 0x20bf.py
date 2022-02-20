@@ -13,8 +13,10 @@ import shutil
 import time
 import requests
 import blockcypher
+import unix_time
 # import pyjq
 # import gnupg
+
 
 
 # os.environ['PYTHONPATH']
@@ -23,11 +25,15 @@ sys.path.append("/usr/local/lib/python3.7/site-packages")
 from TwitterAPI import TwitterAPI
 
 # Setup logging
+global LOGGER
+LOGGER = True
 logging.basicConfig(level=logging.INFO ,format='%(asctime)s %(message)s', datefmt='%j.%Y %I:%M:%S %p')
 logger = logging.getLogger()
 
 global CONFIG
 CONFIG                  = str('twitter_access_tokens')
+global SESSION_ID_LOCK
+SESSION_ID_LOCK        = os.path.expanduser(os.getcwd()+'/SESSION_ID_LOCK')
 global BLOCK_TIP_HEIGHT
 BLOCK_TIP_HEIGHT        = os.path.expanduser(os.getcwd()+'/BLOCK_TIP_HEIGHT')
 global DIFFICULTY
@@ -49,8 +55,9 @@ DATA = ""
 
 def getData(filename):
     f = open(filename)
-    DATA = f.read()
+    DATA = str(f.read())
     f.close()
+    # if (LOGGER): print(DATA) #unsecure
     return DATA
 
 
@@ -60,7 +67,15 @@ at   = getData(ACCESS_TOKEN)
 ats  = getData(ACCESS_TOKEN_SECRET)
 obt  = getData(OLD_BLOCK_TIME)
 
+try:
+    session_id_lock  = getData(SESSION_ID_LOCK)
+    if (session_id_lock == str(0)): logger.info(session_id_lock+"eq")
+    if (session_id_lock != str(0)): logger.info(session_id_lock+"neq")
+except:
+    logger.info(session_id_lock+"except")
+
 api  = TwitterAPI(cak,cask,at,ats)
+if (LOGGER): print(api)
 
 def moveBlockTime():
     try:
@@ -103,7 +118,15 @@ def BTC_TIME():
 
 def BTC_UNIX_TIME_MILLIS():
     global btc_unix_time_millis
+    global SESSION_ID
     btc_unix_time_millis = str(BTC_TIME())+":"+str(getMillis())
+    SESSION_ID = btc_unix_time_millis
+    f = open("SESSION_ID", "w")
+    f.write("" + SESSION_ID + "\n")
+    f.close()
+    f = open("SESSION_ID.lock", "w")
+    f.write("" + SESSION_ID + "\n")
+    f.close()
     return btc_unix_time_millis
 
 def BTC_UNIX_TIME_SECONDS():
@@ -124,6 +147,7 @@ def UNIX_TIME_SECONDS():
 def tweet_blocktime():
     if BTC_TIME() != obt:
         request = api.request('statuses/update', {'status': BTC_UNIX_TIME_MILLIS()})
+        if (LOGGER): logger.info(request)
         if (request.status_code == 200):
             logger.info('api.request SUCCESS')
         else:
@@ -132,13 +156,13 @@ def tweet_blocktime():
         logger.info('tweetBlockTime() FAILURE')
 
 def getMempoolAPI(url,DATA):
-    # logger.info(url)
+    if (LOGGER): logger.info(url)
     with open(DATA, 'wb') as f:
         request = requests.get(url, stream=True)
         f.writelines(request.iter_content(1024))
         response = getData(DATA)
-        # logger.info(getData(DATA))
-        # logger.info(response)
+        if (LOGGER): logger.info(getData(DATA))
+        if (LOGGER): logger.info(response)
 
 def searchGPGR(GPGR):
     try:
@@ -173,13 +197,13 @@ def searchGPGS(GPGS):
 
 getMempoolAPI('https://mempool.space/api/v1/difficulty-adjustment', DIFFICULTY)
 getMempoolAPI('https://mempool.space/api/blocks/tip/height',        BLOCK_TIP_HEIGHT)
-# searchBitcoin()
-# logger.info(blockTime())
-# logger.info(getMillis())
-# logger.info(getSeconds())
-# tweetBlockTime(blockTime())
+
+if (LOGGER): logger.info(blockTime())
+if (LOGGER): logger.info(getMillis())
+if (LOGGER): logger.info(getSeconds())
 
 def test_hash_lib():
+
     global TEST_256
     TEST_256 = hashlib.sha256()
     # empty string test
@@ -194,54 +218,58 @@ def HEX_MESSAGE_DIGEST(recipient, message, sender):
     # test empty string
     assert n_256.hexdigest() == test_hash_lib()
 
-    logger.info("%s",n_256.digest())
-    logger.info(n_256.hexdigest())
-    logger.info(n_256.digest_size)
-    logger.info(n_256.block_size)
+    if (LOGGER): logger.info("%s",n_256.digest())
+    if (LOGGER): logger.info(n_256.hexdigest())
+    if (LOGGER): logger.info(n_256.digest_size)
+    if (LOGGER): logger.info(n_256.block_size)
     n_256.update(bytes(recipient, 'utf-8'))
-    logger.info(n_256.digest())
-    logger.info(n_256.hexdigest())
-    logger.info(n_256.digest_size)
-    logger.info(n_256.block_size)
+    if (LOGGER): logger.info(n_256.digest())
+    if (LOGGER): logger.info(n_256.hexdigest())
+    if (LOGGER): logger.info(n_256.digest_size)
+    if (LOGGER): logger.info(n_256.block_size)
     n_256.update(bytes(message, 'utf-8'))
-    logger.info(n_256.digest())
-    logger.info(n_256.hexdigest())
-    logger.info(n_256.digest_size)
-    logger.info(n_256.block_size)
+    if (LOGGER): logger.info(n_256.digest())
+    if (LOGGER): logger.info(n_256.hexdigest())
+    if (LOGGER): logger.info(n_256.digest_size)
+    if (LOGGER): logger.info(n_256.block_size)
     n_256.update(bytes(BTC_UNIX_TIME_MILLIS(), 'utf-8'))
-    logger.info(n_256.digest())
-    logger.info(n_256.hexdigest())
-    logger.info(n_256.digest_size)
-    logger.info(n_256.block_size)
+    if (LOGGER): logger.info(n_256.digest())
+    if (LOGGER): logger.info(n_256.hexdigest())
+    if (LOGGER): logger.info(n_256.digest_size)
+    if (LOGGER): logger.info(n_256.block_size)
     n_256.update(bytes(sender, 'utf-8'))
-    logger.info(n_256.digest())
-    logger.info(n_256.hexdigest())
-    logger.info(n_256.digest_size)
-    logger.info(n_256.block_size)
+    if (LOGGER): logger.info(n_256.digest())
+    if (LOGGER): logger.info(n_256.hexdigest())
+    if (LOGGER): logger.info(n_256.digest_size)
+    if (LOGGER): logger.info(n_256.block_size)
 
-    # logger.info(n_256.hexdigest())
+    if (LOGGER): logger.info(n_256.hexdigest())
 
     return n_256.hexdigest()
 
 def message_header():
-        DIGEST = HEX_MESSAGE_DIGEST(GPGR, MESSAGE ,GPGS)
-        global BODY
-        # BODY = str(":GPGR:"+GPGR+':DIGEST:'+DIGEST+':BTC:UNIX:'+BTC_UNIX_TIME_MILLIS()+":GPGS:"+GPGS+":")
-        BODY = str(":"+GPGR+':'+DIGEST+':'+BTC_UNIX_TIME_MILLIS()+":"+GPGS+":")
-        logger.info(BODY)
-        return BODY
+    global HEADER
+    # BODY = str(":GPGR:"+GPGR+':DIGEST:'+DIGEST+':BTC:UNIX:'+BTC_UNIX_TIME_MILLIS()+":GPGS:"+GPGS+":")
+    HEADER = str(":GPGR:DIGEST:BTC_TIME:UNIX_TIME_MILLIS:GPGS:LOC:")
+    if (LOGGER): logger.info(HEADER)
+    return HEADER
 def message_body():
-        DIGEST = HEX_MESSAGE_DIGEST(GPGR, MESSAGE ,GPGS)
-        global BODY
-        # BODY = str(":GPGR:"+GPGR+':DIGEST:'+DIGEST+':BTC:UNIX:'+BTC_UNIX_TIME_MILLIS()+":GPGS:"+GPGS+":")
-        BODY = str(":"+GPGR+':'+DIGEST+':'+BTC_UNIX_TIME_MILLIS()+":"+GPGS+":")
-        logger.info(BODY)
-        return BODY
-
-def tweet_message_digest(block_time):
+    LOC="https://github.com/0x20bf-org/0x20bf/blob/main/message_to_7C048F04.txt.gpg"
+    DIGEST = HEX_MESSAGE_DIGEST(GPGR, MESSAGE ,GPGS)
+    global BODY
+    BODY = str(
+        ":"+GPGR+
+        ':'+DIGEST+
+        ':'+BTC_TIME()+":"+UNIX_TIME_MILLIS()+":"+GPGS+":"+LOC+":")
+    if (LOGGER): logger.info(BODY)
+    return BODY
+def tweet_message(block_time):
+    header = ""#message_header()
     body = message_body()
+    if (LOGGER): logger.info(header+"\n"+body)
+    # exit()
     if (block_time != obt):
-        request = api.request('statuses/update', {'status': body})
+        request = api.request('statuses/update', {'status': header+"\n"+body})
         if (request.status_code == 200):
             logger.info('api.request SUCCESS')
         else:
@@ -252,18 +280,24 @@ def tweet_message_digest(block_time):
 # logger.info(BTC_UNIX_TIME_MILLIS())
 
 global GPGR
-GPGR='BB06757B' #RECIPIENT
-# logger.info(GPGR)
+# GPGR='4DC9817F' #bitkarrot
+# GPGR='BB06757B' #RECIPIENT
+GPGR='7C048F04'
+logger.info(GPGR)
 global GPGS
 GPGS='BB06757B' #SENDER
-# logger.info(GPGS)
+logger.info(GPGS)
 global MESSAGE
 MESSAGE='text human readable message'
+if (LOGGER): print(HEX_MESSAGE_DIGEST(GPGR, MESSAGE, GPGS))
 HEX_MESSAGE_DIGEST(GPGR, MESSAGE, GPGS)
 # tweet_message_digest(blockTime())
 # logger.info(str(message_body()))
 test_hash_lib()
 # tweet_blocktime()
+message_header()
+message_body()
+tweet_message(BTC_TIME())
 # searchGPGR(GPGR)
 # searchGPGS(GPGS)
 

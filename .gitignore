@@ -1,5 +1,7 @@
+*.txt
 CNAME
-
+SESSION_ID_LOCK
+SESSION_ID.lock
 164*
 
 bitcoin-test-battery-*

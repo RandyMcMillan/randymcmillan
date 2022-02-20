@@ -41,7 +41,6 @@ DIGEST = ""
 global DATA
 DATA = ""
 
-
 def getData(filename):
     f = open(filename)
     DATA = f.read()
@@ -61,9 +60,11 @@ def moveBlockTime():
     try:
         shutil.move(os.getcwd()+"/BLOCK_TIME", os.getcwd()+"/OLD_BLOCK_TIME")
     except:
+        print("moveBlockTime() failed!")
         f = open("BLOCK_TIME", "w")
         f.write("" + 0 + "\n")
         f.close()
+        pass
 
 def getMillis():
     global millis
@@ -89,14 +90,19 @@ def blockTime():
         return 0
         pass
 
+def BTC_TIME():
+    global btc_time
+    btc_time = str(blockTime())
+    return btc_time
+
 def BTC_UNIX_TIME_MILLIS():
     global btc_unix_time_millis
-    btc_unix_time_millis = str(blockTime())+":"+str(getMillis())
+    btc_unix_time_millis = str(BTC_TIME())+":"+str(getMillis())
     return btc_unix_time_millis
 
 def BTC_UNIX_TIME_SECONDS():
     global btc_unix_time_seconds
-    btc_unix_time_seconds = str(blockTime())+":"+str(getSeconds())
+    btc_unix_time_seconds = str(BTC_TIME())+":"+str(getSeconds())
     return btc_unix_time_seconds
 
 def UNIX_TIME_MILLIS():
@@ -108,11 +114,6 @@ def UNIX_TIME_SECONDS():
     global unix_time_seconds
     unix_time_seconds = str(getSeconds())
     return unix_time_seconds
-
-def BTC_TIME():
-    global btc_time
-    btc_time = str(blockTime())
-    return btc_time
 
 def tweet_blocktime():
     if BTC_TIME() != obt:
@@ -176,26 +177,9 @@ def test_hash_lib():
     global TEST_256
     TEST_256 = hashlib.sha256()
     # empty string test
-    # SHA-256 has the input message size < 2^64-bits. Block size is 512-bits, and it has a word size of 32-bits.
-    # The output is a 256-bit digest.
-    # REF: SHA-256 e3b0c442 98fc1c14 9afbf4c8 996fb924 27ae41e4 649b934c a495991b 7852b855
-    # print(bytes(TEST_256.digest()))
-    # b'\x03\x1e\xdd}Ae\x15\x93\xc5\xfe\\\x00o\xa5u+7\xfd\xdf\xf7\xbcN\x84:\xa6\xaf\x0c\x95\x0fK\x94\x06'
-
-    # digest_size 256 bits = 32 (bytes) per nist standard REF: NIST.FIPS.180-4
-    # print(TEST_256.digest_size)
-    # print(str(pow(2,5))+" (bytes)")
     assert TEST_256.digest_size == pow(2,5)
-    # 32
-
-    # print(TEST_256.block_size)
-    # print(pow(2,6))
     assert TEST_256.block_size == pow(2,6)
-    # 64
-
     assert "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" == TEST_256.hexdigest()
-    # print("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
-    # print(TEST_256.hexdigest())
     return TEST_256.hexdigest()
 
 def HEX_MESSAGE_DIGEST(recipient, message, sender):
@@ -203,6 +187,7 @@ def HEX_MESSAGE_DIGEST(recipient, message, sender):
     n_256 = hashlib.sha256()
     # test empty string
     assert n_256.hexdigest() == test_hash_lib()
+
     print(n_256.digest())
     print(n_256.hexdigest())
     print(n_256.digest_size)

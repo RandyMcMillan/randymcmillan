@@ -121,6 +121,7 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 .PHONY: init
 .ONESHELL:
 init:
+	pushd python-gnupg && $(PYTHON3) setup.py install && popd
 	# @echo $(PYTHON)
 	# @echo $(PYTHON2)
 	# @echo $(PYTHON3)

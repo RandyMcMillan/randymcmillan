@@ -3,6 +3,7 @@
 # https://github.com/geduldig/TwitterAPI
 import sys
 import os
+import logging
 import hashlib
 # import importlib
 # from importlib.resources import read_text
@@ -15,10 +16,15 @@ import blockcypher
 # import pyjq
 # import gnupg
 
+
 # os.environ['PYTHONPATH']
 sys.path.append('.')
 sys.path.append("/usr/local/lib/python3.7/site-packages")
 from TwitterAPI import TwitterAPI
+
+# Setup logging
+logging.basicConfig(level=logging.INFO ,format='%(asctime)s %(message)s', datefmt='%j.%Y %I:%M:%S %p')
+logger = logging.getLogger()
 
 global CONFIG
 CONFIG                  = str('twitter_access_tokens')
@@ -60,7 +66,7 @@ def moveBlockTime():
     try:
         shutil.move(os.getcwd()+"/BLOCK_TIME", os.getcwd()+"/OLD_BLOCK_TIME")
     except:
-        print("moveBlockTime() failed!")
+        logger.info("moveBlockTime() failed!")
         f = open("BLOCK_TIME", "w")
         f.write("" + 0 + "\n")
         f.close()
@@ -119,20 +125,20 @@ def tweet_blocktime():
     if BTC_TIME() != obt:
         request = api.request('statuses/update', {'status': BTC_UNIX_TIME_MILLIS()})
         if (request.status_code == 200):
-            print('api.request SUCCESS')
+            logger.info('api.request SUCCESS')
         else:
-            print('api.request FAILURE')
+            logger.info('api.request FAILURE')
     else:
-        print('tweetBlockTime() FAILURE')
+        logger.info('tweetBlockTime() FAILURE')
 
 def getMempoolAPI(url,DATA):
-    # print(url)
+    # logger.info(url)
     with open(DATA, 'wb') as f:
         request = requests.get(url, stream=True)
         f.writelines(request.iter_content(1024))
         response = getData(DATA)
-        # print(getData(DATA))
-        # print(response)
+        # logger.info(getData(DATA))
+        # logger.info(response)
 
 def searchGPGR(GPGR):
     try:
@@ -143,10 +149,10 @@ def searchGPGR(GPGR):
                 f.write(request.text)
                 f.close
         except:
-            print("TRY GPGR FAILED!")
+            logger.info("TRY GPGR FAILED!")
             pass
     except:
-        print("GPGR SEARCH FAILED!")
+        logger.info("GPGR SEARCH FAILED!")
         pass
 
 def searchGPGS(GPGS):
@@ -158,19 +164,19 @@ def searchGPGS(GPGS):
                 f.write(s.text)
                 f.close
         except:
-            print("TRY GPGS FAILED!")
+            logger.info("TRY GPGS FAILED!")
             pass
     except:
-        print("GPGS SEARCH FAILED!")
+        logger.info("GPGS SEARCH FAILED!")
         pass
 
 
 getMempoolAPI('https://mempool.space/api/v1/difficulty-adjustment', DIFFICULTY)
 getMempoolAPI('https://mempool.space/api/blocks/tip/height',        BLOCK_TIP_HEIGHT)
 # searchBitcoin()
-# print(blockTime())
-# print(getMillis())
-# print(getSeconds())
+# logger.info(blockTime())
+# logger.info(getMillis())
+# logger.info(getSeconds())
 # tweetBlockTime(blockTime())
 
 def test_hash_lib():
@@ -188,32 +194,32 @@ def HEX_MESSAGE_DIGEST(recipient, message, sender):
     # test empty string
     assert n_256.hexdigest() == test_hash_lib()
 
-    print(n_256.digest())
-    print(n_256.hexdigest())
-    print(n_256.digest_size)
-    print(n_256.block_size)
+    logger.info("%s",n_256.digest())
+    logger.info(n_256.hexdigest())
+    logger.info(n_256.digest_size)
+    logger.info(n_256.block_size)
     n_256.update(bytes(recipient, 'utf-8'))
-    print(n_256.digest())
-    print(n_256.hexdigest())
-    print(n_256.digest_size)
-    print(n_256.block_size)
+    logger.info(n_256.digest())
+    logger.info(n_256.hexdigest())
+    logger.info(n_256.digest_size)
+    logger.info(n_256.block_size)
     n_256.update(bytes(message, 'utf-8'))
-    print(n_256.digest())
-    print(n_256.hexdigest())
-    print(n_256.digest_size)
-    print(n_256.block_size)
+    logger.info(n_256.digest())
+    logger.info(n_256.hexdigest())
+    logger.info(n_256.digest_size)
+    logger.info(n_256.block_size)
     n_256.update(bytes(BTC_UNIX_TIME_MILLIS(), 'utf-8'))
-    print(n_256.digest())
-    print(n_256.hexdigest())
-    print(n_256.digest_size)
-    print(n_256.block_size)
+    logger.info(n_256.digest())
+    logger.info(n_256.hexdigest())
+    logger.info(n_256.digest_size)
+    logger.info(n_256.block_size)
     n_256.update(bytes(sender, 'utf-8'))
-    print(n_256.digest())
-    print(n_256.hexdigest())
-    print(n_256.digest_size)
-    print(n_256.block_size)
+    logger.info(n_256.digest())
+    logger.info(n_256.hexdigest())
+    logger.info(n_256.digest_size)
+    logger.info(n_256.block_size)
 
-    # print(n_256.hexdigest())
+    # logger.info(n_256.hexdigest())
 
     return n_256.hexdigest()
 
@@ -222,14 +228,14 @@ def message_header():
         global BODY
         # BODY = str(":GPGR:"+GPGR+':DIGEST:'+DIGEST+':BTC:UNIX:'+BTC_UNIX_TIME_MILLIS()+":GPGS:"+GPGS+":")
         BODY = str(":"+GPGR+':'+DIGEST+':'+BTC_UNIX_TIME_MILLIS()+":"+GPGS+":")
-        print(BODY)
+        logger.info(BODY)
         return BODY
 def message_body():
         DIGEST = HEX_MESSAGE_DIGEST(GPGR, MESSAGE ,GPGS)
         global BODY
         # BODY = str(":GPGR:"+GPGR+':DIGEST:'+DIGEST+':BTC:UNIX:'+BTC_UNIX_TIME_MILLIS()+":GPGS:"+GPGS+":")
         BODY = str(":"+GPGR+':'+DIGEST+':'+BTC_UNIX_TIME_MILLIS()+":"+GPGS+":")
-        print(BODY)
+        logger.info(BODY)
         return BODY
 
 def tweet_message_digest(block_time):
@@ -237,27 +243,27 @@ def tweet_message_digest(block_time):
     if (block_time != obt):
         request = api.request('statuses/update', {'status': body})
         if (request.status_code == 200):
-            print('api.request SUCCESS')
+            logger.info('api.request SUCCESS')
         else:
-            print('api.request FAILURE')
+            logger.info('api.request FAILURE')
     else:
-        print('tweetBlockTime() FAILURE')
+        logger.info('tweetBlockTime() FAILURE')
 
-# print(BTC_UNIX_TIME_MILLIS())
+# logger.info(BTC_UNIX_TIME_MILLIS())
 
 global GPGR
 GPGR='BB06757B' #RECIPIENT
-# print(GPGR)
+# logger.info(GPGR)
 global GPGS
 GPGS='BB06757B' #SENDER
-# print(GPGS)
+# logger.info(GPGS)
 global MESSAGE
 MESSAGE='text human readable message'
 HEX_MESSAGE_DIGEST(GPGR, MESSAGE, GPGS)
 # tweet_message_digest(blockTime())
-# print(str(message_body()))
+# logger.info(str(message_body()))
 test_hash_lib()
-tweet_blocktime()
+# tweet_blocktime()
 # searchGPGR(GPGR)
 # searchGPGS(GPGS)
 

@@ -183,23 +183,26 @@ def test_hash_lib():
     # b'\x03\x1e\xdd}Ae\x15\x93\xc5\xfe\\\x00o\xa5u+7\xfd\xdf\xf7\xbcN\x84:\xa6\xaf\x0c\x95\x0fK\x94\x06'
 
     # digest_size 256 bits = 32 (bytes) per nist standard REF: NIST.FIPS.180-4
-    print(TEST_256.digest_size)
-    print(str(pow(2,5))+" (bytes)")
+    # print(TEST_256.digest_size)
+    # print(str(pow(2,5))+" (bytes)")
     assert TEST_256.digest_size == pow(2,5)
     # 32
 
-    print(TEST_256.block_size)
-    print(pow(2,6))
+    # print(TEST_256.block_size)
+    # print(pow(2,6))
     assert TEST_256.block_size == pow(2,6)
     # 64
 
     assert "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" == TEST_256.hexdigest()
-    print("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
-    print(TEST_256.hexdigest())
+    # print("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
+    # print(TEST_256.hexdigest())
+    return TEST_256.hexdigest()
 
 def HEX_MESSAGE_DIGEST(recipient, message, sender):
 
     n_256 = hashlib.sha256()
+    # test empty string
+    assert n_256.hexdigest() == test_hash_lib()
     print(n_256.digest())
     print(n_256.hexdigest())
     print(n_256.digest_size)
@@ -214,7 +217,7 @@ def HEX_MESSAGE_DIGEST(recipient, message, sender):
     print(n_256.hexdigest())
     print(n_256.digest_size)
     print(n_256.block_size)
-    n_256.update(bytes(btc_unix_time_millis, 'utf-8'))
+    n_256.update(bytes(BTC_UNIX_TIME_MILLIS(), 'utf-8'))
     print(n_256.digest())
     print(n_256.hexdigest())
     print(n_256.digest_size)
@@ -265,11 +268,11 @@ GPGS='BB06757B' #SENDER
 # print(GPGS)
 global MESSAGE
 MESSAGE='text human readable message'
-# HEX_MESSAGE_DIGEST(GPGR, MESSAGE, GPGS)
+HEX_MESSAGE_DIGEST(GPGR, MESSAGE, GPGS)
 # tweet_message_digest(blockTime())
 # print(str(message_body()))
 test_hash_lib()
-# tweet_blocktime()
+tweet_blocktime()
 # searchGPGR(GPGR)
 # searchGPGS(GPGS)
 

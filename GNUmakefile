@@ -218,7 +218,7 @@ push: remove touch-time touch-block-time git-add
 	@echo push
 	git push --set-upstream origin master
 	bash -c "git commit --allow-empty -m '$(TIME)'"
-	bash -c "git push -f git@github.com:RandyMcMillan/randymcmillan.git	+master:master"
+	bash -c "git push -f $(GIT_REPO_ORIGIN)	+master:master"
 	bash -c "git push -f git@github.com:RandyMcMillan/randymcmillan.github.io.git +master:master"
 
 

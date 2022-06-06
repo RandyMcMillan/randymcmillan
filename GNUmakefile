@@ -262,7 +262,7 @@ touch-global: remove git-add touch-block-time
 touch-block-time: remove git-add
 	@echo touch-block-time
 	@echo $(PYTHON3)
-	$(PYTHON3) -m $(PIP) install -r requirements.txt
+	$(PYTHON3) -m $(PIP) install -U -r requirements.txt
 	#$(PYTHON3) ./touch-block-time.py
 	BLOCK_TIME=$(shell  ./touch-block-time.py)
 	export BLOCK_TIME

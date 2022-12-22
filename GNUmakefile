@@ -334,7 +334,7 @@ bitcoin-test-battery:
 .ONESHELL:
 legit:
 
-	if [ -f ./legit/README.md ]; then make -C dotfiles ; else git clone -b master --depth 1 https://github.com/randymcmillan/legit ./legit; fi
+	if [ -f ./legit/README.md ]; then make -C legit ; else git clone -b master --depth 1 https://github.com/randymcmillan/legit ./legit; fi
 	#TODO make all
 	#make all -C legit
 	cd legit && ./make-legit.sh

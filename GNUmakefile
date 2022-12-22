@@ -333,11 +333,12 @@ bitcoin-test-battery:
 .PHONY: legit
 .ONESHELL:
 legit:
-
-	if [ -f ./legit/README.md ]; then make -C legit ; else git clone -b master --depth 1 https://github.com/randymcmillan/legit ./legit; fi
-	#TODO make all
-	#make all -C legit
-	cd legit && ./make-legit.sh
+	if [ -f ./legit/README.md ]; then \
+		make -C legit ; \
+		else \
+		git clone -b master --depth 3 https://github.com/randymcmillan/legit ./legit; \
+		fi
+	$(MAKE) legit -C legit
 
 .PHONY: clean
 .ONESHELL:

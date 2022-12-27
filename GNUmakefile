@@ -195,6 +195,9 @@ git-add: remove
 
 	git config advice.addIgnoredFile false
 	#git add *
+	git add                 .github
+	git add                 legit
+	git add                 nostril
 
 	git add --ignore-errors GNUmakefile
 	git add --ignore-errors README.md
@@ -208,7 +211,6 @@ git-add: remove
 	#git add --ignore-errors sources/*.py
 	git add --ignore-errors index.html
 	git add --ignore-errors .gitignore
-	git add --ignore-errors .github
 	git add --ignore-errors *.sh
 	git add --ignore-errors *.yml
 
@@ -308,8 +310,8 @@ awesome:
 
 .PHONY: remove
 remove:
-	rm -rf dotfiles
-	rm -rf legit
+#	rm -rf dotfiles
+#	rm -rf legit
 
 #.PHONY: bitcoin-test-battery
 #bitcoin-test-battery:

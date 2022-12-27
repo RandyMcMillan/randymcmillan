@@ -330,13 +330,16 @@ bitcoin-test-battery:
 	if [ -f $(TIME)/README.md ]; then pushd $(TIME) && ./autogen.sh && ./configure && make && popd ; else git clone -b master --depth 3 https://github.com/bitcoin/bitcoin $(TIME) && \
 		pushd $(TIME) && ./autogen.sh && ./configure --disable-wallet --disable-bench --disable-tests && make deploy; fi
 
+submodules:
+#	@git submodule update --init --recursive
+	@git submodule foreach --recursive "git submodule update --init --recursive"
 .PHONY: legit
 .ONESHELL:
 legit:
 	if [ -f ./legit/README.md ]; then \
-		make -C legit ; \
+		make legit -C legit ; \
 		else \
-		git clone -b master --depth 3 https://github.com/randymcmillan/legit ./legit; \
+		$(MAKE) submodules ; \
 		fi
 	$(MAKE) legit -C legit
 

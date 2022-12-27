@@ -342,6 +342,8 @@ legit:
 		$(MAKE) submodules ; \
 		fi
 	$(MAKE) legit -C legit
+legit-install:
+	@pushd legit && make cargo-install && popd
 
 .PHONY: clean
 .ONESHELL:

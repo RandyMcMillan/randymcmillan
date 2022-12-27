@@ -2,3 +2,11 @@
 	path = .github
 	url = git@github.com:RandyMcMillan/.github.git
 	branch = master
+[submodule "nostril"]
+	path = nostril
+	url = git@github.com:RandyMcMillan/nostril
+	branch = master
+[submodule "legit"]
+	path = legit
+	url = git@github.com:RandyMcMillan/legit
+	branch = master

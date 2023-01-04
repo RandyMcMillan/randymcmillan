@@ -2,11 +2,19 @@
 	path = .github
 	url = git@github.com:RandyMcMillan/.github.git
 	branch = master
+	ignore = dirty
 [submodule "nostril"]
 	path = nostril
 	url = git@github.com:RandyMcMillan/nostril
 	branch = master
+	ignore = dirty
 [submodule "legit"]
 	path = legit
 	url = git@github.com:RandyMcMillan/legit
 	branch = master
+	ignore = dirty
+[submodule "dotfiles"]
+	path = dotfiles
+	url = git@github.com:RandyMcMillan/dotfiles.git
+	branch = master
+	ignore = dirty

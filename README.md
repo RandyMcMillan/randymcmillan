@@ -10,6 +10,62 @@
 </AUTOMATION>
 
 <details>
+<summary>nostr NIP-05 verification</summary>
+<p>
+
+[https://nvk.org/n00b-nip](https://nvk.org/n00b-nip5)
+"NIP5: Mapping Nostr keys to DNS-based internet identifiers"
+
+Buy a domain 😅
+Setup Domain DNS records to point to GitHub Pages:
+
+| Type | Host              | Answer          | TTL  | Priority |
+|------|-------------------|-----------------|------|----------|
+| A    | randymcmillan.net | 185.199.108.153 | 3600 |          |
+| A    | randymcmillan.net | 185.199.109.153 | 3600 |          |
+| A    | randymcmillan.net | 185.199.110.153 | 3600 |          |
+| A    | randymcmillan.net | 185.199.111.153 | 3600 |          |
+
+$```dig randymcmillan.net```
+
+![randymcmillan@randymcmillan.net.png](randymcmillan@randymcmillan.net.png)
+
+Create a new github repo github.com/new
+
+Create a new file your-repo/.well-known/nostr.json
+
+Edit nostr.json to reflect YOUR pub key and desired nickname this content:
+
+```json
+{
+  "names": {
+  "randymcmillan": "e88a691e98d9987c964521dff60025f60700378a4879180dcbbb4a5027850411"
+  }
+}
+```
+
+Create a new file in the root folder `_config.yml`  and add this line
+
+```
+include: [".well-known"]
+```
+Navigate to github.com/RandyMcMillan/randmcmillan/settings/pages
+
+Under "Build and deployment" select "Deploy from branch" then below select "Main/Master" branch
+
+Under "Custom domain" type your naked randymcmillan.net (github might complain, ignore)
+
+Below it, check Enforce HTTPS. Sometimes this may take a few minutes to be available.
+
+Then head over [branle.netlify.app/settings](https://branle.netlify.app/settings) or [astral.ninja/settings](https://astral.ninja/settings) (using an extension like [Alby](https://getalby.com) or [nos2x](https://chrome.google.com/webstore/detail/nos2x/kpgefcfmnafjgpblomihpgmejjdanjjp))
+edit the NIP-05 Indentifier field to reflect "randymcmillan@randymcmillan.net" and press Save
+you are all set now, enjoy the vanity address.
+</p>
+</details>
+
+----
+
+<details>
 <summary>legit - git commit custom hash</summary>
 
 ```shell

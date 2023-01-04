@@ -14,9 +14,11 @@
 <p>
 
 [https://nvk.org/n00b-nip](https://nvk.org/n00b-nip5)
-"NIP5: Mapping Nostr keys to DNS-based internet identifiers"
 
-Buy a domain 😅
+NIP5: Mapping Nostr keys to DNS-based internet identifiers
+
+Buy a domain
+
 Setup Domain DNS records to point to GitHub Pages:
 
 | Type | Host              | Answer          | TTL  | Priority |
@@ -26,9 +28,9 @@ Setup Domain DNS records to point to GitHub Pages:
 | A    | randymcmillan.net | 185.199.110.153 | 3600 |          |
 | A    | randymcmillan.net | 185.199.111.153 | 3600 |          |
 
-$```dig randymcmillan.net```
+$`` dig randymcmillan.net``
 
-![randymcmillan@randymcmillan.net.png](randymcmillan@randymcmillan.net.png)
+![randymcmillan@randymcmillan.net](randymcmillan@randymcmillan.net.png)
 
 Create a new github repo github.com/new
 
@@ -49,6 +51,7 @@ Create a new file in the root folder `_config.yml`  and add this line
 ```
 include: [".well-known"]
 ```
+
 Navigate to github.com/RandyMcMillan/randmcmillan/settings/pages
 
 Under "Build and deployment" select "Deploy from branch" then below select "Main/Master" branch
@@ -64,6 +67,7 @@ you are all set now, enjoy the vanity address.
 </details>
 
 ----
+
 
 <details>
 <summary>legit - git commit custom hash</summary>

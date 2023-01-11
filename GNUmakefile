@@ -333,8 +333,8 @@ bitcoin-test-battery:
 		pushd $(TIME) && ./autogen.sh && ./configure --disable-wallet --disable-bench --disable-tests && make deploy; fi
 
 submodules:
-#	@git submodule update --init --recursive
-	@git submodule foreach --recursive "git submodule update --init --recursive"
+	@git submodule update --init --recursive
+#	@git submodule foreach --recursive "git submodule update --init --recursive"
 .PHONY: legit
 .ONESHELL:
 legit:

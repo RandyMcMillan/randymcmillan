@@ -338,12 +338,8 @@ submodules:
 .PHONY: legit
 .ONESHELL:
 legit:
-	if [ -f ./legit/README.md ]; then \
-		make legit -C legit ; \
-		else \
-		$(MAKE) submodules ; \
-		fi
-	$(MAKE) legit -C legit
+	@[ ! -f "legit/README.md" ] && make submodules;
+	@[ -f "legit/README.md" ] && pushd legit && make legit;
 legit-install:
 	@pushd legit && make cargo-install && popd
 

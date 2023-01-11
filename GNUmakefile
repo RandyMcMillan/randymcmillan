@@ -338,10 +338,10 @@ submodules:
 .PHONY: legit
 .ONESHELL:
 legit:
-	@[ ! -f "legit/README.md" ] && make submodules;
-	@[ -f "legit/README.md" ] && pushd legit && make legit;
+	if [ ! -f "legit/README.md" ]; then make submodules; fi
+	if [ -d "legit" ]; then pushd legit && make legit; popd; fi
 legit-install:
-	@pushd legit && make cargo-install && popd
+	if [ -d "legit" ]; then pushd legit && make cargo-install; popd; fi
 
 .PHONY: clean
 .ONESHELL:

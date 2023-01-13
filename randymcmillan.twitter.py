@@ -141,7 +141,7 @@ def tweetMessageDigest(block_time):
         # message = BTC_UNIX_TIME()
         digest = HEX_MESSAGE_DIGEST(GPGID,"test message")
         r = api.request('statuses/update', {'status':
-                                            "GPGID:"+GPGID+':DIGEST:'+digest+':BTC:UNIX:'+BTC_UNIX_TIME() })
+                                            "GPGID:"+GPGID+':DIGEST:'+digest+':TOOL:'+is_tool('nostril')+':BTC:UNIX:'+BTC_UNIX_TIME() })
         # r = api.request('statuses/update', {'status': HEX_MESSAGE_DIGEST(GPGID,"test message")})
         # print(BTC_UNIX_TIME)
         # exit()
@@ -152,11 +152,26 @@ def tweetMessageDigest(block_time):
     else:
         print('tweetBlockTime() FAILURE')
 
+
+def is_tool(name):
+    """Check whether `name` is on PATH and marked as executable."""
+
+    # from whichcraft import which
+    from shutil import which
+
+    # from distutils.spawn import find_executable
+    # return find_executable(name) is not None
+    return which(name) # is not None
+
+
+NOSTRIL = is_tool('nostril')
+print(NOSTRIL)
 print(BTC_UNIX_TIME())
 
 global GPGID
-GPGID='BB06757B'
-HEX_MESSAGE_DIGEST(GPGID,"test message")
+GPGID = 'BB06757B'
+# HEX_MESSAGE_DIGEST(GPGID, "test message")
+HEX_MESSAGE_DIGEST(GPGID, str(NOSTRIL))
 tweetMessageDigest(blockTime())
 
 

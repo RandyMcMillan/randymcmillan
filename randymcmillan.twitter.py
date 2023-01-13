@@ -135,25 +135,62 @@ def HEX_MESSAGE_DIGEST(recipient, message):
     # print(n.hexdigest())
     return n.hexdigest()
 
+
 def tweetMessageDigest(block_time):
     if (block_time != obt):
-        # r = api.request('statuses/update', {'status': block_time+":"+getSeconds })
-        # message = BTC_UNIX_TIME()
-        digest = HEX_MESSAGE_DIGEST(GPGID,"test message")
-        r = api.request('statuses/update', {'status':
-                                            "GPGID:"+GPGID+':DIGEST:'+digest+':TOOL:'+is_tool('nostril')+':BTC:UNIX:'+BTC_UNIX_TIME() })
-        # r = api.request('statuses/update', {'status': HEX_MESSAGE_DIGEST(GPGID,"test message")})
+
+        # r = api.request('statuses/update',
+        #                 {'status':
+        #                  block_time+":"+getSeconds
+        #                  })
+
+        if is_tool('nostril'):
+            message = "test twitter/nostr syndication"
+            digest = HEX_MESSAGE_DIGEST(GPGID, message)
+            r = api.request('statuses/update',
+                            {'status':
+                             "GPGID:" + GPGID
+                             + 'MESSAGE:' + message
+                             + ':DIGEST:' + digest
+                             + ':TOOL:' + str(is_tool('nostril'))
+                             + ':WHICHTOOL:' + str(which_tool('nostril'))
+                             + ':BTC:UNIX:' + BTC_UNIX_TIME()
+                             })
+        else:
+            message = "test twitter syndication"
+            digest = HEX_MESSAGE_DIGEST(GPGID, message)
+            r = api.request('statuses/update',
+                            {'status':
+                             "GPGID:"+GPGID
+                             + 'MESSAGE:' + message
+                             + ':DIGEST:' + digest
+                             + 'BTC:UNIX:' + BTC_UNIX_TIME()
+                             })
+        # r = api.request('statuses/update', \
+        # {'status': HEX_MESSAGE_DIGEST(GPGID,"test message")})
         # print(BTC_UNIX_TIME)
         # exit()
         if (r.status_code == 200):
             print('api.request SUCCESS')
         else:
             print('api.request FAILURE')
+
     else:
         print('tweetBlockTime() FAILURE')
 
 
 def is_tool(name):
+    """Check whether `name` is on PATH and marked as executable."""
+
+    # from whichcraft import which
+    from shutil import which
+
+    # from distutils.spawn import find_executable
+    # return find_executable(name) is not None
+    return which(name) is not None
+
+
+def which_tool(name):
     """Check whether `name` is on PATH and marked as executable."""
 
     # from whichcraft import which

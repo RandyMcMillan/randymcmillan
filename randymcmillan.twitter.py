@@ -10,9 +10,9 @@ import time
 import blockcypher
 import hashlib
 import pyjq
-os.environ['PYTHONPATH']
+# os.environ['PYTHONPATH']
 sys.path.append('.')
-sys.path.append("/usr/local/lib/python3.7/site-packages")
+sys.path.append("/usr/local/lib/python3.10/site-packages")
 from TwitterAPI import TwitterAPI
 
 def moveBlockTime():

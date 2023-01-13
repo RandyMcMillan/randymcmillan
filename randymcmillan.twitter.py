@@ -150,7 +150,7 @@ def tweetMessageDigest(block_time):
             r = api.request('statuses/update',
                             {'status':
                              "GPGID:" + GPGID
-                             + 'MESSAGE:' + message
+                             + ':MESSAGE:' + message
                              + ':DIGEST:' + digest
                              + ':TOOL:' + str(is_tool('nostril'))
                              + ':WHICHTOOL:' + str(which_tool('nostril'))
@@ -162,7 +162,7 @@ def tweetMessageDigest(block_time):
             r = api.request('statuses/update',
                             {'status':
                              "GPGID:"+GPGID
-                             + 'MESSAGE:' + message
+                             + ':MESSAGE:' + message
                              + ':DIGEST:' + digest
                              + 'BTC:UNIX:' + BTC_UNIX_TIME()
                              })

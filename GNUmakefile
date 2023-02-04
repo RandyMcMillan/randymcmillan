@@ -306,6 +306,30 @@ awesome:
 	bash -c "sed '1,136d' ~/randymcmillan/sources/AWESOME-temp.md > ./sources/AWESOME.md"
 	bash -c "pandoc -s ~/randymcmillan/sources/AWESOME.md -o ./sources/awesome.html"
 
+
+.PHONY: venv
+venv:## 	create python3 virtualenv .venv
+	test -d .venv || $(PYTHON3) -m virtualenv .venv
+	( \
+	   source .venv/bin/activate; \
+	   $(PYTHON#) -m pip install --upgrade pip; \
+	   $(PIP3) install -r requirements.txt; \
+	);
+	@echo "To activate (venv)"
+	@echo "try:"
+	@echo ". .venv/bin/activate"
+	@echo "or:"
+	@echo "make test-venv"
+##:	venv-test            source .venv/bin/activate; pip install -r requirements.txt;
+venv-test:## 	test virutalenv .venv
+	# insert test commands here
+	test -d .venv || $(PYTHON3) -m virtualenv .venv
+	( \
+	   source .venv/bin/activate; \
+	   $(PYTHON3) -m pip install --upgrade pip; \
+	   $(PIP3) install -r requirements.txt; \
+	);
+
 .PHONY: remove
 remove:
 	rm -rf dotfiles

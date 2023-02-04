@@ -309,6 +309,8 @@ awesome:
 
 .PHONY: venv
 venv:## 	create python3 virtualenv .venv
+	@curl -O https://bootstrap.pypa.io/get-pip.py
+	@sudo -H python3 get-pip.py --no-warn-script-location
 	test -d .venv || $(PYTHON3) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; \

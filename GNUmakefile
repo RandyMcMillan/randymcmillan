@@ -314,7 +314,7 @@ venv:## 	create python3 virtualenv .venv
 	test -d .venv || $(PYTHON3) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; \
-	   $(PYTHON#) -m pip install --upgrade pip; \
+	   $(PYTHON3) -m pip install --upgrade pip; \
 	   $(PIP3) install -r requirements.txt; \
 	);
 	@echo "To activate (venv)"

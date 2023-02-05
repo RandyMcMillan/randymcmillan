@@ -30,7 +30,10 @@ export python_version_patch
 export PYTHON_VERSION
 
 venv: venv.3.10## 	default venv.3.10
-venv.3.10:## 	
+	@echo
+venv.3.10:## 	venv.3.10
+	@echo PATH=$(PATH):/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin
+	@echo PATH=$(PATH):$(HOME)/Library/Python/3.10/bin
 	@#rm -rf .venv
 	@#python -c 'import sys; print (sys.real_prefix)' 2>/dev/null && INVENV=1 && echo $(INVENV) || INVENV=0 && echo $(INVENV)
 	test -d .venv || $(shell which python3.10) -m virtualenv .venv

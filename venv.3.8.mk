@@ -29,8 +29,9 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
-.PHONY: venv.3.8
-venv.3.8:## 	
+venv.3.8:## 	venv.3.8
+	@echo PATH=$(PATH):/usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/bin
+	@echo PATH=$(PATH):$(HOME)/Library/Python/3.8/bin
 	@#rm -rf .venv
 	@#python -c 'import sys; print (sys.real_prefix)' 2>/dev/null && INVENV=1 && echo $(INVENV) || INVENV=0 && echo $(INVENV)
 	test -d .venv || $(shell which python3.8) -m virtualenv .venv

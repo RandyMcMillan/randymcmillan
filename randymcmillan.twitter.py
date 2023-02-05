@@ -136,7 +136,7 @@ def HEX_MESSAGE_DIGEST(recipient, message):
     return n.hexdigest()
 
 
-def tweetMessageDigest(block_time):
+def syndicateMessage(block_time):
     if (block_time != obt):
 
         # r = api.request('statuses/update',
@@ -198,9 +198,10 @@ def which_tool(name):
 
     # from distutils.spawn import find_executable
     # return find_executable(name) is not None
-    return which(name) # is not None
+    return which(name)
 
 
+global NOSTRIL
 NOSTRIL = is_tool('nostril')
 print(NOSTRIL)
 print(BTC_UNIX_TIME())
@@ -209,6 +210,4 @@ global GPGID
 GPGID = 'BB06757B'
 # HEX_MESSAGE_DIGEST(GPGID, "test message")
 HEX_MESSAGE_DIGEST(GPGID, str(NOSTRIL))
-tweetMessageDigest(blockTime())
-
-
+syndicateMessage(blockTime())

@@ -214,8 +214,6 @@ push: remove touch-time touch-block-time git-add
 	git push --set-upstream origin master
 	bash -c "git commit --allow-empty -m '$(TIME)'"
 	bash -c "git push -f $(GIT_REPO_ORIGIN)	+master:master"
-	bash -c "git push -f git@github.com:RandyMcMillan/randymcmillan.github.io.git +master:master"
-
 
 .PHONY: branch
 .ONESHELL:
@@ -257,7 +255,6 @@ touch-global: remove git-add touch-block-time
 touch-block-time: remove git-add
 	@echo touch-block-time
 	@echo $(PYTHON3)
-	$(PYTHON3) -m $(PIP) install -U -r requirements.txt
 	#$(PYTHON3) ./touch-block-time.py
 	BLOCK_TIME=$(shell  ./touch-block-time.py)
 	export BLOCK_TIME
@@ -265,7 +262,7 @@ touch-block-time: remove git-add
 	git add .gitignore *.md GNUmakefile  *.yml *.sh BLOCK_TIME *.html *.txt TIME
 	git commit --allow-empty -m $(TIME)
 		git branch $(BLOCK_TIME)
-		git push -f origin $(BLOCK_TIME)
+		#git push -f origin $(BLOCK_TIME)
 
 .PHONY: automate
 automate: touch-time git-add

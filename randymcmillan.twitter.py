@@ -4,16 +4,17 @@ import sys
 import os
 import requests
 import shutil
-import importlib
-from importlib.resources import read_text
+# import importlib
+# from importlib.resources import read_text
 import time
 import blockcypher
 import hashlib
-import pyjq
+# import pyjq
 # os.environ['PYTHONPATH']
 sys.path.append('.')
 sys.path.append("/usr/local/lib/python3.10/site-packages")
 from TwitterAPI import TwitterAPI
+
 
 def moveBlockTime():
     try:
@@ -23,15 +24,18 @@ def moveBlockTime():
         f.write("" + 0 + "\n")
         f.close()
 
+
 def getMillis():
     global millis
     millis = int(round(time.time() * 1000))
     return millis
 
+
 def getSeconds():
     global seconds
     seconds = int(round(time.time()))
     return seconds
+
 
 def blockTime():
     try:
@@ -47,10 +51,35 @@ def blockTime():
         return 0
         pass
 
+
 def BTC_UNIX_TIME():
     global btc_unix_time
     btc_unix_time = str(blockTime())+":"+str(getSeconds())
     return btc_unix_time
+
+
+def WEEBLE_WOBBLE():
+    return str(WEEBLE())+":"+str(WOBBLE())
+
+
+def WEEBLE():
+    global weeble
+    global wobble
+    global w_seconds
+    global w_block_time
+    w_seconds = getSeconds()
+    w_block_time = blockTime()
+    weeble = w_seconds / w_block_time
+    print("weeble="+str(weeble))
+    return weeble
+
+
+def WOBBLE():
+    """globally initialized in WEEBLE"""
+    wobble = w_seconds % w_block_time
+    print("wobble="+str(wobble))
+    return wobble
+
 
 def getData(filename):
     f = open(filename)
@@ -115,6 +144,7 @@ m.update(b" the spammish repetition")
 print(m.digest())
 # b'\x03\x1e\xdd}Ae\x15\x93\xc5\xfe\\\x00o\xa5u+7\xfd\xdf\xf7\xbcN\x84:\xa6\xaf\x0c\x95\x0fK\x94\x06'
 print(m.digest_size)
+print("WEEBLE_WOBBLE="+WEEBLE_WOBBLE())
 # 32
 print(m.block_size)
 # 64

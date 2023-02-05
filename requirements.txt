@@ -3,4 +3,4 @@ twitter_scraper
 blockcypher
 setuptools
 twitterAPI
-pyjq
+jq

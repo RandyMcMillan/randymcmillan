@@ -318,12 +318,10 @@ remove:
 #	./bitcoin-test-battery.sh v22.0rc3
 
 .PHONY: dotfiles
-.ONESHELL:
 dotfiles:
 	@echo dotfiles
-
-	if [ -f ~/dotfiles/README.md ]; then pushd ~/dotfiles && make vim && popd ; else git clone -b master --depth 1 https://github.com/randymcmillan/dotfiles ~/dotfiles; fi
-	cd ~/dotfiles && make init && make vim
+	@if [ -d ~/dotfiles ]; then pushd ~/dotfiles && make vim && popd && exit; else git clone https://github.com/randymcmillan/dotfiles ~/dotfiles; fi
+	@pushd ~/dotfiles && make vim && popd
 
 .PHONY: bitcoin-test-battery
 .ONESHELL:
@@ -359,5 +357,5 @@ failure:
 .PHONY: success
 success:
 	@-/bin/true && ([ $$? -eq 0 ] && echo "success!") || echo "failure!"
-include venv.mk
+include venv.3.10.mk
 include venv.3.8.mk

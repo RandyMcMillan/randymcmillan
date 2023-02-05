@@ -29,11 +29,11 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
-.PHONY: venv
-venv:
+venv: venv.3.10## 	default venv.3.10
+venv.3.10:## 	
 	@#rm -rf .venv
 	@#python -c 'import sys; print (sys.real_prefix)' 2>/dev/null && INVENV=1 && echo $(INVENV) || INVENV=0 && echo $(INVENV)
-	test -d .venv || $(shell which python3.8) -m virtualenv .venv
+	test -d .venv || $(shell which python3.10) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; pip install -r requirements.txt; \
 	);
@@ -42,27 +42,28 @@ venv:
 	@echo ". .venv/bin/activate"
 	@echo "or:"
 	@echo "make venv-test"
-venv-test:
+venv.3.10-test:## 	
 	# insert test commands here
-	test -d .venv || $(shell which python3.8) -m virtualenv .venv
+	test -d .venv || $(shell which python3.10) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; pip install -r requirements.txt; \
+	   $(shell which python3.10) -m pip list --outdated \
 	);
-venv-install:
+venv.3.10-install:## 	
 	@echo "python3 v$(python_version_major).$(python_version_minor).$(python_version_patch)"
 ifneq (python_version_major,3)
-ifneq (python_version_minor,8)
-	@echo "installing python@3.8"
-	@if hash brew 2>/dev/null; then brew install -q python@3.8 libpq; python3.8 -m pip install virtualenv; fi;
+ifneq (python_version_minor,10)
+	@echo "installing python@3.10"
+	@if hash brew 2>/dev/null; then brew install -q python@3.10 libpq; python3.10 -m pip install virtualenv; fi;
 	@if hash apt-get 2>/dev/null; then sudo apt-get update && sudo apt-get install software-properties-common; fi;
-	@if hash add-apt-repository 2>/dev/null; then sudo add-apt-repository ppa:deadsnakes/ppa; sudo apt-get install python3.8; fi;
+	@if hash add-apt-repository 2>/dev/null; then sudo add-apt-repository ppa:deadsnakes/ppa; sudo apt-get install python3.10; fi;
 endif
-ifeq (python_version_minor,8)
+ifeq (python_version_minor,10)
 	@export LDFLAGS="-L/usr/local/opt/libpq/lib"
 	@export CPPFLAGS="-I/usr/local/opt/libpq/include"
 	@export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 	@git submodule update --init --recursive
-	#@$(shell command -v python3.8) -m pip install -U -r requirements.txt
-	@$(shell command -v python3.8) -m pip install -U -r requirements.lock
+	#@$(shell command -v python3.10) -m pip install -U -r requirements.txt
+	@$(shell command -v python3.10) -m pip install -U -r requirements.lock
 endif
 endif

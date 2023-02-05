@@ -213,7 +213,7 @@ push: remove touch-time touch-block-time git-add
 	@echo push
 	git push --set-upstream origin master
 	bash -c "git commit --allow-empty -m '$(TIME)'"
-	bash -c "git push -f $(GIT_REPO_ORIGIN)	+master:master"
+	bash -c "git push -f $(GIT_REPO_ORIGIN)	+$(GIT_BRANCH):$(GIT_BRANCH)"
 
 .PHONY: branch
 .ONESHELL:

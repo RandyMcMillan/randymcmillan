@@ -115,45 +115,38 @@ PRIVATE_ALLSPHINXOPTS = -d $(PRIVATE_BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(S
 # the i18n builder cannot share the environment and doctrees with the others
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
-.PHONY: -
--: help
+-:
+	#NOTE: 2 hashes are detected as 1st column output with color
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?##/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .PHONY: init
 .ONESHELL:
-init:
+init:## 	
 	# @echo $(PYTHON)
 	# @echo $(PYTHON2)
 	# @echo $(PYTHON3)
 	# @echo $(PIP)
 	# @echo $(PIP2)
 	# @echo $(PIP3)
-	@echo PATH=$(PATH):/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin
-	@echo PATH=$(PATH):$(HOME)/Library/Python/3.9/bin
+	@echo PATH=$(PATH):/usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/bin
+	@echo PATH=$(PATH):$(HOME)/Library/Python/3.8/bin
+	@echo PATH=$(PATH):/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin
+	@echo PATH=$(PATH):$(HOME)/Library/Python/3.10/bin
 	$(PYTHON3) -m pip install --user --upgrade pip
 	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
+twitter-api:pyjq## 	
 	@echo pip3 install --user twint
 	@echo pip3 install --user TwitterAPI
 	[ -d "$(PWD)/TwitterAPI" ] && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install || git clone https://github.com/geduldig/TwitterAPI.git && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install
+pyjq:
+	@pip3 install pyjq
+help:## 	verbose help
+	@echo ''
+	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
+	@echo ""
+	@echo "Useful Commands:"
+	@echo ""
 
-.PHONY: help
-help: report
-	@echo ""
-	@echo "  make docs"
-	@echo "  make report"
-	@echo "  make dotfiles"
-	@echo "  make awesome"
-	@echo "  make legit"
-	@echo "  make git-add"
-	@echo "  make remove"
-	@echo "  make global-branch"
-	@echo "  make time-branch"
-	@echo "  make touch-global"
-	@echo "  make touch-time"
-	@echo "  make branch"
-	@echo "  make trigger"
-	@echo "  make push"
-	@echo "  make bitcoin-test-battery"
-	@echo ""
 
 .PHONY: report
 report:

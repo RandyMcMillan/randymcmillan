@@ -22,3 +22,6 @@
 	path = strfry
 	url = git@github.com:RandyMcMillan/strfry.git
 	ignore = dirty
+[submodule "nostrclient"]
+	path = nostrclient
+	url = git@github.com:RandyMcMillan/nostrclient.git

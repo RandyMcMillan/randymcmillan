@@ -25,3 +25,6 @@
 [submodule "nostrclient"]
 	path = nostrclient
 	url = git@github.com:RandyMcMillan/nostrclient.git
+[submodule "psychic-bassoon"]
+	path = psychic-bassoon
+	url = git@github.com:RandyMcMillan/psychic-bassoon.git

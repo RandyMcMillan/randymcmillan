@@ -24,14 +24,17 @@ export PIP
 export PIP3
 endif
 
+PYTHON_VENV                             := $(shell python -c "import sys; sys.stdout.write('1') if hasattr(sys, 'base_prefix') else sys.stdout.write('0')")
+PYTHON3_VENV                            := $(shell python3 -c "import sys; sys.stdout.write('1') if hasattr(sys, 'real_prefix') else sys.stdout.write('0')")
+
 ifeq ($(project),)
 PROJECT_NAME							:= $(notdir $(PWD))
 else
 PROJECT_NAME							:= $(project)
 endif
 export PROJECT_NAME
-PYTHONPATH=$(PWD)/twitter
-export PYTHONPATH
+TWITTER_API=$(PWD)/TwitterAPI
+export TWITTER_API
 ifeq ($(port),)
 PORT									:= 0
 else
@@ -84,6 +87,16 @@ export GIT_REPO_PATH
 
 BASENAME := $(shell basename -s .git `git config --get remote.origin.url`)
 export BASENAME
+
+NODE_VERSION							:=v16.19.1
+export NODE_VERSION
+NODE_ALIAS								:=v16.19.0
+export NODE_ALIAS
+PACKAGE_MANAGER							:=yarn
+export PACKAGE_MANAGER
+PACKAGE_INSTALL							:=add
+export PACKAGE_INSTALL
+
 
 # Force the user to explicitly select public - public=true
 # export KB_PUBLIC=public && make keybase-public
@@ -156,7 +169,13 @@ report:
 	@echo '        - TIME=${TIME}'
 	@echo '        - BASENAME=${BASENAME}'
 	@echo '        - PROJECT_NAME=${PROJECT_NAME}'
-	@echo '        - PYTHONPATH=${PYTHONPATH}'
+	@echo '        - TWITTER_API=${TWITTER_API}'
+	@echo '        - PYTHON_VENV=${PYTHON_VENV}'
+	@echo '        - PYTHON3_VENV=${PYTHON3_VENV}'
+	@echo ''
+	@echo ' NODE_VERSION=${NODE_VERSION}	'
+	@echo ' NODE_ALIAS=${NODE_ALIAS}	'
+	@echo ''
 	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '        - GH_USER_REPO=${GH_USER_REPO}'
 	@echo '        - GH_USER_SPECIAL_REPO=${GH_USER_SPECIAL_REPO}'
@@ -331,6 +350,15 @@ legit:
 legit-install:
 	if [ -d "legit" ]; then pushd legit && make cargo-install; popd; fi
 
+.PHONY: nvm
+.ONESHELL:
+nvm: ## nvm
+	@curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash || git pull -C $(HOME)/.nvm && export NVM_DIR="$(HOME)/.nvm" && [ -s "$(NVM_DIR)/nvm.sh" ] && \. "$(NVM_DIR)/nvm.sh" && [ -s "$(NVM_DIR)/bash_completion" ] && \. "$(NVM_DIR)/bash_completion"  && nvm install $(NODE_VERSION) && nvm use $(NODE_VERSION)
+	# @source ~/.bashrc && nvm alias $(NODE_ALIAS) $(NODE_VERSION)
+
+clean-nvm: ## clean-nvm
+	@rm -rf ~/.nvm
+
 .PHONY: clean
 .ONESHELL:
 clean: touch-time touch-global
@@ -347,5 +375,6 @@ failure:
 .PHONY: success
 success:
 	@-/bin/true && ([ $$? -eq 0 ] && echo "success!") || echo "failure!"
+
 include venv.3.10.mk
 include venv.3.8.mk

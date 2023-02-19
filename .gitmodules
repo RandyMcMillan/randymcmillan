@@ -25,6 +25,12 @@
 [submodule "nostrclient"]
 	path = nostrclient
 	url = git@github.com:RandyMcMillan/nostrclient.git
+	ignore = dirty
 [submodule "psychic-bassoon"]
 	path = psychic-bassoon
 	url = git@github.com:RandyMcMillan/psychic-bassoon.git
+	ignore = dirty
+[submodule "turbo-meme"]
+	path = turbo-meme
+	url = git@github.com:RandyMcMillan/turbo-meme.git
+	ignore = dirty

@@ -26,6 +26,13 @@ endif
 
 PYTHON_VENV                             := $(shell python -c "import sys; sys.stdout.write('1') if hasattr(sys, 'base_prefix') else sys.stdout.write('0')")
 PYTHON3_VENV                            := $(shell python3 -c "import sys; sys.stdout.write('1') if hasattr(sys, 'real_prefix') else sys.stdout.write('0')")
+export PYTHON_VENV
+export PYTHON3_VENV
+ifeq ($(PYTHON_VENV),0)
+USER_FLAG:=--user
+else
+USER_FLAG:=	
+endif
 
 ifeq ($(project),)
 PROJECT_NAME							:= $(notdir $(PWD))
@@ -149,10 +156,10 @@ init:##
 	$(PYTHON3) -m pip install --user -r requirements.txt
 twitter-api:pyjq## 	
 	#@echo pip3 install --user twint
-	echo pip3 install --user TwitterAPI
-	[ -d "$(PWD)/TwitterAPI" ] && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install --user || git clone https://github.com/geduldig/TwitterAPI.git && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install --user
+	echo pip3 install $(USER_FLAG) TwitterAPI
+	[ -d "$(PWD)/TwitterAPI" ] && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install $(USER_FLAG) || git clone https://github.com/geduldig/TwitterAPI.git && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install $(USER_FLAG)
 pyjq:
-	pip3 install --user pyjq
+	pip3 install $(USER_FLAG) pyjq
 help:## 	verbose help
 	@echo ''
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'

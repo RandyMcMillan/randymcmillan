@@ -148,11 +148,11 @@ init:##
 	$(PYTHON3) -m pip install --user --upgrade pip
 	$(PYTHON3) -m pip install --user -r requirements.txt
 twitter-api:pyjq## 	
-	@echo pip3 install --user twint
-	@echo pip3 install --user TwitterAPI
-	[ -d "$(PWD)/TwitterAPI" ] && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install || git clone https://github.com/geduldig/TwitterAPI.git && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install
+	#@echo pip3 install --user twint
+	echo pip3 install --user TwitterAPI
+	[ -d "$(PWD)/TwitterAPI" ] && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install --user || git clone https://github.com/geduldig/TwitterAPI.git && pushd $(PWD)/TwitterAPI && $(PYTHON3) setup.py install --user
 pyjq:
-	@pip3 install pyjq
+	pip3 install --user pyjq
 help:## 	verbose help
 	@echo ''
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'

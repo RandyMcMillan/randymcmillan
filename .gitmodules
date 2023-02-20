@@ -37,3 +37,8 @@
 [submodule "bitcoin"]
 	path = bitcoin
 	url = git@github.com:RandyMcMillan/bitcoin.git
+	ignore = dirty
+[submodule "ord"]
+	path = ord
+	url = git@github.com:RandyMcMillan/ord.git
+	ignore = dirty

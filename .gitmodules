@@ -34,3 +34,6 @@
 	path = turbo-meme
 	url = git@github.com:RandyMcMillan/turbo-meme.git
 	ignore = dirty
+[submodule "bitcoin"]
+	path = bitcoin
+	url = git@github.com:RandyMcMillan/bitcoin.git

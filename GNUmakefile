@@ -141,12 +141,12 @@ init:##
 	# @echo $(PIP)
 	# @echo $(PIP2)
 	# @echo $(PIP3)
-	@echo PATH=$(PATH):/usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/bin
-	@echo PATH=$(PATH):$(HOME)/Library/Python/3.8/bin
-	@echo PATH=$(PATH):/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin
-	@echo PATH=$(PATH):$(HOME)/Library/Python/3.10/bin
+	#@echo PATH=$(PATH):/usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/bin
+	#@echo PATH=$(PATH):$(HOME)/Library/Python/3.8/bin
+	#@echo PATH=$(PATH):/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin
+	#@echo PATH=$(PATH):$(HOME)/Library/Python/3.10/bin
 	$(PYTHON3) -m pip install --user --upgrade pip
-	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
+	$(PYTHON3) -m pip install --user -r requirements.txt
 twitter-api:pyjq## 	
 	@echo pip3 install --user twint
 	@echo pip3 install --user TwitterAPI

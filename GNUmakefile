@@ -351,23 +351,23 @@ bitcoin-test-battery:
 	if [ -f $(TIME)/README.md ]; then pushd $(TIME) && ./autogen.sh && ./configure && make && popd ; else git clone -b master --depth 3 https://github.com/bitcoin/bitcoin $(TIME) && \
 		pushd $(TIME) && ./autogen.sh && ./configure --disable-wallet --disable-bench --disable-tests && make deploy; fi
 
-checkbrew:
+checkbrew:## checkbrew
 ifeq ($(HOMEBREW),)
 	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
 	@type -P brew
 endif
 
-submodules:checkbrew
+submodules:checkbrew## submodules
 	@git submodule update --init --recursive
 #	@git submodule foreach --recursive "git submodule update --init --recursive"
 
 .PHONY: legit
 .ONESHELL:
-legit:
+legit:## legit
 	if [ ! -f "legit/README.md" ]; then make submodules; fi
 	if [ -d "legit" ]; then pushd legit && make legit; popd; fi
-legit-install:
+legit-install:## legit-install
 	if [ -d "legit" ]; then pushd legit && make cargo-install; popd; fi
 
 .PHONY: nvm
@@ -381,12 +381,12 @@ clean-nvm: ## clean-nvm
 
 .PHONY: clean
 .ONESHELL:
-clean: touch-time touch-global
+clean: touch-time touch-global## clean
 	bash -c "rm -rf $(BUILDDIR)"
 
 .PHONY: serve
 .ONESHELL:
-serve:
+serve:## serve
 	bash -c "$(PYTHON3) -m http.server $(PORT) -d . &"
 
 .PHONY: failure

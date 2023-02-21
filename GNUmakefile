@@ -3,6 +3,9 @@ PWD 									?= pwd_unknown
 TIME 									:= $(shell date +%s)
 export TIME
 
+HOMEBREW                                := $(type -P brew)
+export HOMEBREW
+
 PYTHON                                  := $(shell which python)
 export PYTHON
 PYTHON2                                 := $(shell which python2)
@@ -348,9 +351,17 @@ bitcoin-test-battery:
 	if [ -f $(TIME)/README.md ]; then pushd $(TIME) && ./autogen.sh && ./configure && make && popd ; else git clone -b master --depth 3 https://github.com/bitcoin/bitcoin $(TIME) && \
 		pushd $(TIME) && ./autogen.sh && ./configure --disable-wallet --disable-bench --disable-tests && make deploy; fi
 
-submodules:
+checkbrew:
+ifeq ($(HOMEBREW),)
+	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+	@type -P brew
+endif
+
+submodules:checkbrew
 	@git submodule update --init --recursive
 #	@git submodule foreach --recursive "git submodule update --init --recursive"
+
 .PHONY: legit
 .ONESHELL:
 legit:

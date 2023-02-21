@@ -95,13 +95,15 @@ export GIT_REPO_PATH
 BASENAME := $(shell basename -s .git `git config --get remote.origin.url`)
 export BASENAME
 
-NODE_VERSION							:=v16.19.1
+NODE_VERSION                           :=v16.19.1
 export NODE_VERSION
-NODE_ALIAS								:=v16.19.0
+NODE_ALIAS                             :=v16.19.0
 export NODE_ALIAS
-PACKAGE_MANAGER							:=yarn
+NVM_DIR                                :=$(HOME)/.nvm
+export NVM_DIR
+PACKAGE_MANAGER                        :=yarn
 export PACKAGE_MANAGER
-PACKAGE_INSTALL							:=add
+PACKAGE_INSTALL                        :=add
 export PACKAGE_INSTALL
 
 

@@ -51,7 +51,8 @@ Create a new file in the root folder `_config.yml`  and add this line
 include: [".well-known"]
 ```
 
-Navigate to github.com/RandyMcMillan/randmcmillan/settings/pages
+Navigate to:
+[https://github.com/RandyMcMillan/randymcmillan/settings/pages](https://github.com/RandyMcMillan/randymcmillan/settings/pages)
 
 Under "Build and deployment" select "Deploy from branch" then below select "Main/Master" branch
 

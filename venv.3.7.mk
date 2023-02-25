@@ -2,7 +2,7 @@ PYTHON                                  := $(shell which python)
 export PYTHON
 PYTHON2                                 := $(shell which python2)
 export PYTHON2
-PYTHON3                                 := $(shell which python3.7)
+PYTHON3                                 := $(shell which python3)
 export PYTHON3
 
 PIP                                     := $(shell which pip)
@@ -12,7 +12,7 @@ export PIP2
 PIP3                                    := $(shell which pip3)
 export PIP3
 
-python_version_full := $(wordlist 2,4,$(subst ., ,$(shell python3.7 --version 2>&1)))
+python_version_full := $(wordlist 2,4,$(subst ., ,$(shell python3 --version 2>&1)))
 python_version_major := $(word 1,${python_version_full})
 python_version_minor := $(word 2,${python_version_full})
 python_version_patch := $(word 3,${python_version_full})
@@ -29,7 +29,7 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
-venv.3.7:## 	venv.3.7
+venv-3-7:## 	venv-3-7
 	@echo PATH=$(PATH):/usr/local/opt/python@3.7/Frameworks/Python.framework/Versions/3.7/bin
 	@echo PATH=$(PATH):$(HOME)/Library/Python/3.7/bin
 	@#rm -rf .venv
@@ -43,14 +43,14 @@ venv.3.7:## 	venv.3.7
 	@echo ". .venv/bin/activate"
 	@echo "or:"
 	@echo "make venv-test"
-venv.3.7-test:## 	
+venv-3-7-test:## 	venv-3-7-test
 	# insert test commands here
 	test -d .venv || $(shell which python3.7) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; pip install -r requirements.txt; \
 	   $(shell which python3.7) -m pip list --outdated \
 	);
-venv.3.7-install:## 	
+venv-3-7-install:## 	venv-3-7-install
 	@echo "python3 v$(python_version_major).$(python_version_minor).$(python_version_patch)"
 ifneq (python_version_major,3)
 ifneq (python_version_minor,7)

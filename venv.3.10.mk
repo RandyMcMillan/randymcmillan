@@ -29,9 +29,7 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
-venv: venv.3.10## 	default venv.3.10
-	@echo
-venv.3.10:## 	venv.3.10
+venv-3-10:## 	venv-3-10
 	@echo PATH=$(PATH):/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin
 	@echo PATH=$(PATH):$(HOME)/Library/Python/3.10/bin
 	@#rm -rf .venv
@@ -45,14 +43,14 @@ venv.3.10:## 	venv.3.10
 	@echo ". .venv/bin/activate"
 	@echo "or:"
 	@echo "make venv-test"
-venv.3.10-test:## 	
+venv-3-10-test:## 	venv-3-10-test
 	# insert test commands here
 	test -d .venv || $(shell which python3.10) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; pip install -r requirements.txt; \
 	   $(shell which python3.10) -m pip list --outdated \
 	);
-venv.3.10-install:## 	
+venv-3-10-install:## 	venv-3-10-install
 	@echo "python3 v$(python_version_major).$(python_version_minor).$(python_version_patch)"
 ifneq (python_version_major,3)
 ifneq (python_version_minor,10)

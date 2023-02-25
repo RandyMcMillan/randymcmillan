@@ -29,12 +29,14 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
-venv-3-8:## 	venv-3-8
-	@echo PATH=$(PATH):/usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/bin
-	@echo PATH=$(PATH):$(HOME)/Library/Python/3.8/bin
+venv: venv-3-11## 	default venv-3-11
+	@echo
+venv-3-11:## 	venv-3-11
+	@echo PATH=$(PATH):/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/bin
+	@echo PATH=$(PATH):$(HOME)/Library/Python/3.11/bin
 	@#rm -rf .venv
 	@#python -c 'import sys; print (sys.real_prefix)' 2>/dev/null && INVENV=1 && echo $(INVENV) || INVENV=0 && echo $(INVENV)
-	test -d .venv || $(shell which python3.8) -m virtualenv .venv
+	test -d .venv || $(shell which python3.11) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; pip install -r requirements.txt; \
 	);
@@ -43,28 +45,28 @@ venv-3-8:## 	venv-3-8
 	@echo ". .venv/bin/activate"
 	@echo "or:"
 	@echo "make venv-test"
-venv-3-8-test:## 	venv-3-8-test
+venv-3-11-test:## 	venv-3-11-test
 	# insert test commands here
-	test -d .venv || $(shell which python3.8) -m virtualenv .venv
+	test -d .venv || $(shell which python3.11) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; pip install -r requirements.txt; \
-	   $(shell which python3.8) -m pip list --outdated \
+	   $(shell which python3.11) -m pip list --outdated \
 	);
-venv-3-8-install:## 	venv-3-8-install
+venv-3-11-install:## 	venv-3-11-install
 	@echo "python3 v$(python_version_major).$(python_version_minor).$(python_version_patch)"
 ifneq (python_version_major,3)
-ifneq (python_version_minor,8)
-	@echo "installing python@3.8"
-	@if hash brew 2>/dev/null; then brew install -q python@3.8 libpq; python3.8 -m pip install virtualenv; fi;
+ifneq (python_version_minor,11)
+	@echo "installing python@3.11"
+	@if hash brew 2>/dev/null; then brew install -q python@3.11 libpq; python3.11 -m pip install virtualenv; fi;
 	@if hash apt-get 2>/dev/null; then sudo apt-get update && sudo apt-get install software-properties-common; fi;
-	@if hash add-apt-repository 2>/dev/null; then sudo add-apt-repository ppa:deadsnakes/ppa; sudo apt-get install python3.8; fi;
+	@if hash add-apt-repository 2>/dev/null; then sudo add-apt-repository ppa:deadsnakes/ppa; sudo apt-get install python3.11; fi;
 endif
-ifeq (python_version_minor,8)
+ifeq (python_version_minor,11)
 	@export LDFLAGS="-L/usr/local/opt/libpq/lib"
 	@export CPPFLAGS="-I/usr/local/opt/libpq/include"
 	@export PKG_CONFIG_PATH="/usr/local/opt/libpq/lib/pkgconfig"
 	@git submodule update --init --recursive
-	#@$(shell command -v python3.8) -m pip install -U -r requirements.txt
-	@$(shell command -v python3.8) -m pip install -U -r requirements.lock
+	#@$(shell command -v python3.11) -m pip install -U -r requirements.txt
+	@$(shell command -v python3.11) -m pip install -U -r requirements.lock
 endif
 endif

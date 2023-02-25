@@ -11,7 +11,7 @@
 [submodule "legit"]
 	path = legit
 	url = git@github.com:RandyMcMillan/legit
-	branch = v0.2.0
+	branch = v0.2.1_1
 	ignore = dirty
 [submodule "dotfiles"]
 	path = dotfiles

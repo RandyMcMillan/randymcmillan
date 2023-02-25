@@ -347,6 +347,7 @@ submodules:checkbrew## 	submodules
 legit:## 	legit
 	if [ ! -f "legit/README.md" ]; then make submodules; fi
 	if [ -d "legit" ]; then pushd legit && make legit; popd; fi
+	$(MAKE) legit-install
 legit-install:## 	legit-install
 	if [ -d "legit" ]; then pushd legit && make cargo-install; popd; fi
 

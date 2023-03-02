@@ -53,3 +53,6 @@
 	path = btcdeb
 	url = git@github.com:RandyMcMillan/btcdeb.git
 	ignore = dirty
+[submodule "liana"]
+	path = liana
+	url = git@github.com:RandyMcMillan/liana.git

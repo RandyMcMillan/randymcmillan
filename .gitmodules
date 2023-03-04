@@ -65,3 +65,7 @@
 	path = rust-embed
 	url = git@github.com:pyrossh/rust-embed.git
 	ignore = dirty
+[submodule "make-cargo"]
+	path = make-cargo
+	url = git@github.com:RandyMcMillan/make-cargo.git
+	ignore = dirty

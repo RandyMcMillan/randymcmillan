@@ -345,17 +345,43 @@ submodules:checkbrew## 	submodules
 .PHONY: legit
 .ONESHELL:
 legit:## 	legit
-	if [ ! -f "legit/README.md" ]; then make submodules; fi
+	if [ ! -f legit/README.* ]; then make submodules; fi
 	if [ -d "legit" ]; then pushd legit && make legit; popd; fi
 	$(MAKE) legit-install
 legit-install:## 	legit-install
 	if [ -d "legit" ]; then pushd legit && make cargo-install; popd; fi
+
+.PHONY: liana
+.ONESHELL:
+liana:## 	liana
+	if [ ! -f liana/README.* ]; then make submodules; fi
+	if [ -d "liana" ]; then pushd liana && make liana; popd; fi
+	$(MAKE) liana-install
+liana-install:## 	liana-install
+	if [ -d "liana" ]; then pushd liana && make cargo-install; popd; fi
+.PHONY: make-cargo
+.ONESHELL:
+make-cargo:## 	make-cargo
+	if [ ! -f make-cargo/README.* ]; then make submodules; fi
+	if [ -d "make-cargo" ]; then pushd liana && make cargo-build; popd; fi
+	$(MAKE) make-cargo-install
+	@echo "make-cargo open file:///$(PWD)/@RandyMcMillan.jpg"
+make-cargo-install:## 	make-cargo-install
+	if [ -d "make-cargo" ]; then pushd make-cargo && make cargo-install; popd; fi
 
 .PHONY: nvm
 .ONESHELL:
 nvm: ## 	nvm
 	@curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash || git pull -C $(HOME)/.nvm && export NVM_DIR="$(HOME)/.nvm" && [ -s "$(NVM_DIR)/nvm.sh" ] && \. "$(NVM_DIR)/nvm.sh" && [ -s "$(NVM_DIR)/bash_completion" ] && \. "$(NVM_DIR)/bash_completion"  && nvm install $(NODE_VERSION) && nvm use $(NODE_VERSION)
 	@source ~/.bashrc && nvm alias $(NODE_ALIAS) $(NODE_VERSION)
+.PHONY: nostril
+.ONESHELL:
+nostril:## 	nostril
+	if [ ! -f nostril/README.* ]; then make submodules; fi
+	if [ -d "nostril" ]; then pushd nostril && make nostril; popd; fi
+	$(MAKE) nostril-install
+nostril-install:## 	nostril-install
+	if [ -d "nostril" ]; then pushd nostril && make install; popd; fi
 
 clean-nvm: ## 	clean-nvm
 	@rm -rf ~/.nvm

@@ -56,9 +56,12 @@
 [submodule "liana"]
 	path = liana
 	url = git@github.com:RandyMcMillan/liana.git
+	ignore = dirty
 [submodule "actix-web-rust-embed-responder"]
 	path = actix-web-rust-embed-responder
 	url = git@github.com:SeriousBug/actix-web-rust-embed-responder.git
+	ignore = dirty
 [submodule "rust-embed"]
 	path = rust-embed
 	url = git@github.com:pyrossh/rust-embed.git
+	ignore = dirty

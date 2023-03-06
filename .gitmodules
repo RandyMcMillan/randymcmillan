@@ -56,3 +56,35 @@
 [submodule "liana"]
 	path = liana
 	url = git@github.com:RandyMcMillan/liana.git
+	ignore = dirty
+[submodule "WasmEdge"]
+	path = WasmEdge
+	url = git@github.com:RandyMcMillan/WasmEdge.git
+	ignore = dirty
+[submodule "make-cargo"]
+	path = make-cargo
+	url = git@github.com:RandyMcMillan/make-cargo.git
+	ignore = dirty
+[submodule "miniscript-builder"]
+	path = miniscript-builder
+	url = git@github.com:RandyMcMillan/miniscript-builder.git
+	ignore = dirty
+[submodule "howto-wasm-minimal"]
+	path = howto-wasm-minimal
+	url = git@github.com:simonw/howto-wasm-minimal.git
+	ignore = dirty
+[submodule "rust-embed"]
+	path = rust-embed
+	url = git@github.com:pyrossh/rust-embed.git
+	ignore = dirty
+[submodule "servo"]
+	path = servo
+	url = git@github.com:servo/servo.git
+	ignore = dirty
+[submodule "iced"]
+	path = iced
+	url = git@github.com:iced-rs/iced.git
+	ignore = dirty
+[submodule "actix-web-rust-embed-responder"]
+	path = actix-web-rust-embed-responder
+	url = git@github.com:SeriousBug/actix-web-rust-embed-responder.git

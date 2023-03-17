@@ -26,14 +26,6 @@
 	path = nostrclient
 	url = git@github.com:RandyMcMillan/nostrclient.git
 	ignore = dirty
-[submodule "psychic-bassoon"]
-	path = psychic-bassoon
-	url = git@github.com:RandyMcMillan/psychic-bassoon.git
-	ignore = dirty
-[submodule "turbo-meme"]
-	path = turbo-meme
-	url = git@github.com:RandyMcMillan/turbo-meme.git
-	ignore = dirty
 [submodule "bitcoin"]
 	path = bitcoin
 	url = git@github.com:RandyMcMillan/bitcoin.git
@@ -45,6 +37,7 @@
 [submodule "spotify-tui"]
 	path = spotify-tui
 	url = git@github.com:Rigellute/spotify-tui.git
+	ignore = dirty
 [submodule "firmware"]
 	path = firmware
 	url = git@github.com:RandyMcMillan/firmware.git
@@ -88,3 +81,15 @@
 [submodule "actix-web-rust-embed-responder"]
 	path = actix-web-rust-embed-responder
 	url = git@github.com:SeriousBug/actix-web-rust-embed-responder.git
+	ignore = dirty
+[submodule "nostr-proxy"]
+	path = nostr-proxy
+	url = git@github.com:RandyMcMillan/nostr-proxy.git
+	ignore = dirty
+[submodule "NostrGit"]
+	path = NostrGit
+	url = git@github.com:RandyMcMillan/NostrGit.git
+	ignore = dirty
+[submodule "gun"]
+	path = gun
+	url = git@github.com:RandyMcMillan/gun.git

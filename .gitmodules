@@ -16,7 +16,7 @@
 [submodule "dotfiles"]
 	path = dotfiles
 	url = git@github.com:RandyMcMillan/dotfiles.git
-	branch = 40f24ed5b7086ac67106f37329bec9fa4459c7d8
+	branch = 1679782227
 	ignore = dirty
 [submodule "strfry"]
 	path = strfry

@@ -338,7 +338,7 @@ else
 	@type -P brew
 endif
 
-submodules:checkbrew## 	submodules
+submodules: checkbrew## 	submodules
 	@git submodule update --init --recursive
 #	@git submodule foreach --recursive "git submodule update --init --recursive"
 

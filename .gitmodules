@@ -85,3 +85,6 @@
 	path = nostr-proxy
 	url = git@github.com:RandyMcMillan/nostr-proxy.git
 	ignore = dirty
+[submodule "xcodelegacy"]
+	path = xcodelegacy
+	url = git@github.com:devernay/xcodelegacy.git

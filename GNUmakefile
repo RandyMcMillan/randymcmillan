@@ -3,6 +3,25 @@ PWD 									?= pwd_unknown
 TIME 									:= $(shell date +%s)
 export TIME
 
+OS                                      :=$(shell uname -s)
+export OS
+OS_VERSION                              :=$(shell uname -r)
+export OS_VERSION
+ARCH                                    :=$(shell uname -m)
+export ARCH
+ifeq ($(ARCH),x86_64)
+TRIPLET                                 :=x86_64-linux-gnu
+export TRIPLET
+endif
+ifeq ($(ARCH),arm64)
+TRIPLET                                 :=aarch64-linux-gnu
+export TRIPLET
+endif
+ifeq ($(ARCH),arm64)
+TRIPLET                                 :=aarch64-linux-gnu
+export TRIPLET
+endif
+
 HOMEBREW                                := $(shell type -P brew)
 export HOMEBREW
 
@@ -356,6 +375,10 @@ legit-install:## 	legit-install
 nvm: ## 	nvm
 	@curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash || git pull -C $(HOME)/.nvm && export NVM_DIR="$(HOME)/.nvm" && [ -s "$(NVM_DIR)/nvm.sh" ] && \. "$(NVM_DIR)/nvm.sh" && [ -s "$(NVM_DIR)/bash_completion" ] && \. "$(NVM_DIR)/bash_completion"  && nvm install $(NODE_VERSION) && nvm use $(NODE_VERSION)
 	@source ~/.bashrc && nvm alias $(NODE_ALIAS) $(NODE_VERSION)
+
+tag:
+	@git tag $(OS)-$(OS_VERSION)-$(ARCH)-$(shell date +%s)
+	@git push -f --tags
 
 clean-nvm: ## 	clean-nvm
 	@rm -rf ~/.nvm

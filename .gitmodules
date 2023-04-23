@@ -37,6 +37,7 @@
 [submodule "spotify-tui"]
 	path = spotify-tui
 	url = git@github.com:Rigellute/spotify-tui.git
+	ignore = dirty
 [submodule "firmware"]
 	path = firmware
 	url = git@github.com:RandyMcMillan/firmware.git

@@ -404,4 +404,5 @@ success:
 -include venv.3.10.mk
 -include venv.3.8.mk
 -include venv.3.7.mk
+-include nostril.mk
 -include act.mk

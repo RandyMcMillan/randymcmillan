@@ -94,3 +94,7 @@
 	path = git
 	url = git@github.com:RandyMcMillan/git.git
 	ignore = dirty
+[submodule "node-gh-actions"]
+	path = node-gh-actions
+	url = git@github.com:RandyMcMillan/node-gh-actions.git
+	ignore = dirty

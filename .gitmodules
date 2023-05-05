@@ -98,3 +98,6 @@
 	path = node-gh-actions
 	url = git@github.com:RandyMcMillan/node-gh-actions.git
 	ignore = dirty
+[submodule "act"]
+	path = act
+	url = git@github.com:RandyMcMillan/act.git

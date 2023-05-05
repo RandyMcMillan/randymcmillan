@@ -101,3 +101,7 @@
 [submodule "act"]
 	path = act
 	url = git@github.com:RandyMcMillan/act.git
+[submodule "docker.shell"]
+	path = docker.shell
+	url = git@github.com:RandyMcMillan/docker.shell.git
+	ignore = dirty

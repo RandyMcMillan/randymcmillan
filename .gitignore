@@ -142,7 +142,8 @@ etc-pihole
 .DS_Store
 .config/QtProject
 1.1.1i
-docker.shell
+
+#docker.shell
 
 dotfiles
 legit

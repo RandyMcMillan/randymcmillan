@@ -105,3 +105,6 @@
 	path = docker.shell
 	url = git@github.com:RandyMcMillan/docker.shell.git
 	ignore = dirty
+[submodule "leleliu008"]
+	path = leleliu008
+	url = git@github.com:RandyMcMillan/leleliu008.git

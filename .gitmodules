@@ -109,3 +109,6 @@
 	path = leleliu008
 	url = git@github.com:RandyMcMillan/leleliu008.git
 	ignore = dirty
+[submodule "bitcoin_src1"]
+	path = bitcoin_src1
+	url = git@github.com:XertroV/bitcoin_src1.git

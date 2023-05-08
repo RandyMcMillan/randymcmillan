@@ -89,6 +89,7 @@
 [submodule "xcodelegacy"]
 	path = xcodelegacy
 	url = git@github.com:devernay/xcodelegacy.git
+	branch = master
 	ignore = dirty
 [submodule "git"]
 	path = git

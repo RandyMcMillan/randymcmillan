@@ -358,17 +358,17 @@ else
 endif
 
 submodules: checkbrew## 	submodules
+	@git submodule init -- firmware && git submodule update -- firmware
 	@git submodule update --init --recursive
 #	@git submodule foreach --recursive "git submodule update --init --recursive"
 
 .PHONY: legit
 .ONESHELL:
 legit:## 	legit
-	if [ ! -f "legit/README.md" ]; then make submodules; fi
-	if [ -d "legit" ]; then pushd legit && make legit; popd; fi
-	$(MAKE) legit-install
-legit-install:## 	legit-install
-	if [ -d "legit" ]; then pushd legit && make cargo-install; popd; fi
+	@git submodule init -- $@ && git submodule update -- $@
+	if [ ! -d "$@" ]; then make submodules; fi
+	if [ -d "$@" ];   then pushd $@ && make $@; popd; fi
+	if [ -d "$@" ]; then pushd $@ && make cargo-install; popd; fi
 
 .PHONY: nvm
 .ONESHELL:

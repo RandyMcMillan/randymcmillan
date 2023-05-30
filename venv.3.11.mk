@@ -29,9 +29,11 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
-venv: venv-3-11## 	default venv-3-11
-	@echo
-venv-3-11:## 	venv-3-11
+3-11:
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?##/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@sed -n 's/^### //p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
+
+venv-3-11:### 	venv-3-11
 	@echo PATH=$(PATH):/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/bin
 	@echo PATH=$(PATH):$(HOME)/Library/Python/3.11/bin
 	@#rm -rf .venv

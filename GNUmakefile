@@ -117,9 +117,9 @@ export GIT_REPO_PATH
 BASENAME := $(shell basename -s .git `git config --get remote.origin.url` || echo $(PROJECT_NAME))
 export BASENAME
 
-NODE_VERSION                           :=v16.19.1
+NODE_VERSION                           :=v14.21.3
 export NODE_VERSION
-NODE_ALIAS                             :=v16.19.0
+NODE_ALIAS                             :=v14.21.0
 export NODE_ALIAS
 NVM_DIR                                :=$(HOME)/.nvm
 export NVM_DIR
@@ -164,19 +164,39 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 .PHONY: init
 .ONESHELL:
-init:## 	
-	# @echo $(PYTHON)
-	# @echo $(PYTHON2)
-	# @echo $(PYTHON3)
-	# @echo $(PIP)
-	# @echo $(PIP2)
-	# @echo $(PIP3)
+init:venv## 	
+	@echo $(PYTHON)
+	@echo $(PYTHON2)
+	@echo $(PYTHON3)
+	@echo $(PIP)
+	@echo $(PIP2)
+	@echo $(PIP3)
 	#@echo PATH=$(PATH):/usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/bin
 	#@echo PATH=$(PATH):$(HOME)/Library/Python/3.8/bin
 	#@echo PATH=$(PATH):/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin
 	#@echo PATH=$(PATH):$(HOME)/Library/Python/3.10/bin
-	$(PYTHON3) -m pip install $(USER_FLAG) --upgrade pip
-	$(PYTHON3) -m pip install $(USER_FLAG) -r requirements.txt
+	test -d .venv || $(PYTHON3) -m virtualenv .venv
+	( \
+	   source .venv/bin/activate; pip install -q -r requirements.txt; \
+	   $(PYTHON3) -m pip install $(USER_FLAG) --upgrade pip; \
+	   $(PYTHON3) -m pip install $(USER_FLAG) -r requirements.txt; \
+	   $(PYTHON3) -m pip install -q omegaconf \
+	   pip install -q --upgrade pip; \
+	);
+	( \
+	    while ! docker system info > /dev/null 2>&1; do\
+	    echo 'Waiting for docker to start...';\
+	    if [[ '$(OS)' == 'Linux' ]]; then\
+	     systemctl restart docker.service;\
+	    fi;\
+	    if [[ '$(OS)' == 'Darwin' ]]; then\
+	     open --background -a /./Applications/Docker.app/Contents/MacOS/Docker;\
+	    fi;\
+	sleep 1;\
+	done\
+	)
+	@bash -c ". .venv/bin/activate &"
+
 twitter-api:pyjq## 	twitter-api
 	#@echo pip3 install $(USER_FLAG) twint
 	echo pip3 install $(USER_FLAG) TwitterAPI
@@ -447,6 +467,10 @@ failure:
 .PHONY: success
 success:
 	@-/usr/bin/true && ([ $$? -eq 0 ] && echo "success!") || echo "failure!"
+
+venv:## 	default venv-3-11
+	$(MAKE) -f $(PWD)/venv.3.11.mk venv-3-11
+	@echo
 
 -include venv.3.11.mk
 -include venv.3.10.mk

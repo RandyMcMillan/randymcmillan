@@ -18,10 +18,6 @@
 	url = git@github.com:RandyMcMillan/dotfiles.git
 	branch = master
 	ignore = dirty
-[submodule "strfry"]
-	path = strfry
-	url = git@github.com:RandyMcMillan/strfry.git
-	ignore = dirty
 [submodule "nostrclient"]
 	path = nostrclient
 	url = git@github.com:RandyMcMillan/nostrclient.git

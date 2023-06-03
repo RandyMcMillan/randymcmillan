@@ -2,7 +2,7 @@ PYTHON                                  := $(shell which python)
 export PYTHON
 PYTHON2                                 := $(shell which python2)
 export PYTHON2
-PYTHON3                                 := $(shell which python3)
+PYTHON3                                 := $(shell which python3.11)
 export PYTHON3
 
 PIP                                     := $(shell which pip)

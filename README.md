@@ -41,7 +41,7 @@ Edit nostr.json to reflect YOUR pub key and desired nickname this content:
 ```json
 {
   "names": {
-  "randymcmillan": "edfa27d49d2af37ee331e1225bb6ed1912c6d999281b36d8018ad99bc3573c29"
+  "randymcmillan": "e88a691e98d9987c964521dff60025f60700378a4879180dcbbb4a5027850411"
   }
 }
 ```
@@ -52,7 +52,8 @@ Create a new file in the root folder `_config.yml`  and add this line
 include: [".well-known"]
 ```
 
-Navigate to github.com/RandyMcMillan/randmcmillan/settings/pages
+Navigate to:
+[https://github.com/RandyMcMillan/randymcmillan/settings/pages](https://github.com/RandyMcMillan/randymcmillan/settings/pages)
 
 Under "Build and deployment" select "Deploy from branch" then below select "Main/Master" branch
 

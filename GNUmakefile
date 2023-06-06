@@ -330,14 +330,17 @@ automate: touch-time git-add
 	./.github/workflows/automate.sh
 
 .PHONY: docs
-docs: git-add awesome
+docs: git-add docker-start## 	docs
 	#@echo docs
 	bash -c 'if pgrep MacDown; then pkill MacDown; fi'
 	bash -c 'cat $(PWD)/sources/HEADER.md                >  $(PWD)/README.md'
 	bash -c 'cat $(PWD)/sources/COMMANDS.md              >> $(PWD)/README.md'
 	bash -c 'cat $(PWD)/sources/FOOTER.md                >> $(PWD)/README.md'
-	@if hash pandoc 2>/dev/null; then echo; fi || $(HOMEBREW) install pandoc
-	bash -c 'reload && pandoc -s README.md -o index.html'
+	@if hash pandoc 2>/dev/null; then \
+		bash -c 'pandoc -s README.md -o index.html'; \
+		fi || if hash docker 2>/dev/null; then \
+		docker run --rm --volume "`pwd`:/data" --user `id -u`:`id -g` pandoc/latex:2.6 README.md; \
+		fi
 	git add --ignore-errors sources/*.md
 	git add --ignore-errors *.md
 	#git ls-files -co --exclude-standard | grep '\.md/$\' | xargs git
@@ -345,7 +348,7 @@ docs: git-add awesome
 .PHONY: awesome
 awesome:
 	@echo awesome
-	$(HOMEBREW) install curl gnu-sed pandoc
+	$(HOMEBREW) install curl gnu-sed 
 	bash -c "curl https://www.bitcoin.org/bitcoin.pdf -o bitcoin.pdf && rm -f bitcoin.pdf"
 
 .PHONY: remove

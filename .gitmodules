@@ -58,10 +58,6 @@
 	path = howto-wasm-minimal
 	url = git@github.com:simonw/howto-wasm-minimal.git
 	ignore = dirty
-[submodule "rust-embed"]
-	path = rust-embed
-	url = git@github.com:pyrossh/rust-embed.git
-	ignore = dirty
 [submodule "servo"]
 	path = servo
 	url = git@github.com:servo/servo.git

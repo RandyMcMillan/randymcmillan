@@ -25,10 +25,10 @@ endif
 HOMEBREW                                := $(shell type -P brew)
 export HOMEBREW
 
-PYTHON                                  := $(shell which python)
-export PYTHON
-PYTHON2                                 := $(shell which python2)
-export PYTHON2
+#PYTHON                                  := $(shell which python)
+#export PYTHON
+#PYTHON2                                 := $(shell which python2)
+#export PYTHON2
 PYTHON3                                 := $(shell which python3)
 export PYTHON3
 
@@ -46,7 +46,7 @@ export PIP
 export PIP3
 endif
 
-PYTHON_VENV                             := $(shell python -c "import sys; sys.stdout.write('1') if hasattr(sys, 'base_prefix') else sys.stdout.write('0')")
+#PYTHON_VENV                             := $(shell python -c "import sys; sys.stdout.write('1') if hasattr(sys, 'base_prefix') else sys.stdout.write('0')")
 PYTHON3_VENV                            := $(shell python3 -c "import sys; sys.stdout.write('1') if hasattr(sys, 'real_prefix') else sys.stdout.write('0')")
 export PYTHON_VENV
 export PYTHON3_VENV

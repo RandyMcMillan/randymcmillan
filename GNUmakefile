@@ -422,7 +422,6 @@ docker-start:## 	start docker
 	test -d .venv || $(PYTHON3) -m virtualenv .venv
 	( \
 	   source .venv/bin/activate; pip install -q -r requirements.txt; \
-	   python3 -m pip install -q omegaconf \
 	   pip install -q --upgrade pip; \
 	);
 	( \
@@ -471,10 +470,11 @@ failure:
 success:
 	@-/usr/bin/true && ([ $$? -eq 0 ] && echo "success!") || echo "failure!"
 
-venv:## 	default venv-3-11
-	$(MAKE) -f $(PWD)/venv.3.11.mk venv-3-11
+venv:## 	default venv-3-15
+	$(MAKE) -f $(PWD)/venv.3.15.mk venv-3-15
 	@echo
 
+-include venv.3.15.mk
 -include venv.3.11.mk
 -include venv.3.10.mk
 -include venv.3.8.mk
